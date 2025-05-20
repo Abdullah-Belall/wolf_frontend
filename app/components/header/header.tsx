@@ -1,0 +1,53 @@
+"use client";
+import { Avatar } from "@mui/material";
+import BasicList from "./header-list";
+import { useEffect, useState } from "react";
+import TransparentLayer from "../common/transparent-layer";
+import {
+  CLIENT_COLLECTOR_REQ,
+  GET_MY_PROFILE_REQ,
+} from "@/app/utils/requests/client-side.requests";
+import { useUser } from "@/app/utils/contexts/UserContext";
+import { useRouter } from "next/navigation";
+
+export default function Header() {
+  const router = useRouter();
+  const [list, setList] = useState(false);
+  const { user, setUser } = useUser();
+  const handleClose = () => {
+    setList(false);
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await CLIENT_COLLECTOR_REQ(GET_MY_PROFILE_REQ);
+      if (response.done) {
+        setUser(response.data);
+      } else {
+        router.replace("/log-in");
+      }
+    };
+    fetchData();
+  }, []);
+  return (
+    <header className="fixed z-20 left-0 top-0 bg-myLight w-full border-b border-b-mdLight shadow-b-md flex flex-row-reverse justify-between items-center">
+      {list && (
+        <>
+          <TransparentLayer onClick={handleClose} />
+          <div className="absolute top-[calc(100%+6px)] left-[5px]">
+            <BasicList />
+          </div>
+        </>
+      )}
+      <h1 className="font-bold pr-mainxxl">LOGO</h1>
+      <div
+        onClick={() => setList(!list)}
+        className={`${
+          list ? "bg-myHover" : ""
+        } cursor-pointer px-mainxxl py-mainxl flex flex-row-reverse gap-[10px] items-center hover:bg-myHover`}
+      >
+        <Avatar sx={{ bgcolor: "#ced4da", color: "#343a40" }}>{user?.user_name.slice(0, 1)}</Avatar>
+        <div>{user?.user_name}</div>
+      </div>
+    </header>
+  );
+}
