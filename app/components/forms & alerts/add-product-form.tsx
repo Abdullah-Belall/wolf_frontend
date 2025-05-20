@@ -17,7 +17,7 @@ import { sameTextField } from "@/app/utils/base";
 export default function AddProductForm({
   isForEdit,
 }: {
-  isForEdit: {
+  isForEdit?: {
     id: string;
     title: string;
     desc: string;
@@ -56,7 +56,7 @@ export default function AddProductForm({
     if (!isForEdit) {
       fetchData();
     }
-  }, []);
+  }, [isForEdit]);
   const dropDownOpthions = categories.map((e) => (
     <li
       key={e.id}

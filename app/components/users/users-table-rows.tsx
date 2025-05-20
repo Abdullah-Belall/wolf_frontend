@@ -11,7 +11,6 @@ export default function UsersTableRows({
   tax_num,
   completed_orders,
   date,
-  addresses_count,
   phone_count,
   type,
   role,

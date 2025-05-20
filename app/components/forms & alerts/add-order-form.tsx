@@ -1,6 +1,6 @@
 "use client";
 import { TextField, Button } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import SelectList from "../common/select-list";
 import styles from "@/app/styles/drop-down.module.css";
 import UsersTable from "../tables/users-table";
@@ -13,14 +13,6 @@ import {
   GET_ALL_CLIENTS_REQ,
 } from "@/app/utils/requests/client-side.requests";
 import { sameTextField } from "@/app/utils/base";
-interface FormState {
-  paymentMethod: PaymentMethodsEnum | null;
-  paymentStatus: PaidStatusEnum | null;
-  paymentMethodLabel: string | null;
-  paymentStatusLabel: string | null;
-  discount?: string | null;
-  tax?: string | null;
-}
 
 interface DropDownsInterface {
   value: PaymentMethodsEnum | PaidStatusEnum;

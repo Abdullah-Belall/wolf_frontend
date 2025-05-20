@@ -5,7 +5,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import BadgeIcon from "@mui/icons-material/Badge";
 import { Button } from "@mui/material";
 import { cairo } from "@/app/utils/fonts/main.font";
 import { usePathname, useRouter } from "next/navigation";

@@ -6,7 +6,7 @@ import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 
 export default function PhonesTabelRow({
-  data: { index, id, phone, note, is_main, created_at },
+  data: { index, id, phone, note, created_at },
   type,
 }: {
   data: PhoneInterface;

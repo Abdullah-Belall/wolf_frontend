@@ -65,7 +65,11 @@ export default function AddCategoryForm({
     );
     setLoading(false);
     if (response.done) {
-      isForEdit ? isForEdit.onEdited() : onCategoryAdded();
+      if (isForEdit) {
+        isForEdit.onEdited();
+      } else {
+        onCategoryAdded();
+      }
       setData({
         name: "",
         desc: "",

@@ -4,7 +4,7 @@ import HomeFilledIcon from "@mui/icons-material/HomeFilled";
 import { Button } from "@mui/material";
 import SideBarList from "./side-bar-list";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { FaPerson } from "react-icons/fa6";
 import { FaIdCardAlt } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
@@ -26,7 +26,7 @@ export default function SideBar() {
           lastTitle={item.lastTitle}
         />
       )),
-    [sideBarItems]
+    []
   );
 
   return (
