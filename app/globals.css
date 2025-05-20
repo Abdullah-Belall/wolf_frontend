@@ -42,6 +42,6 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .MuiSnackbarContent-root {
-  background-color: transparent;
-  box-shadow: none;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
