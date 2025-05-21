@@ -28,7 +28,7 @@ export default function EditQtyPopup({ OnConfirm }: { OnConfirm: any; title: str
       openSnakeBar("لا يمكن ان تكون الكمية الاجمالية رقم سالب.");
       return false;
     }
-    if (data.costPrice == "" || Number(data.costPrice) <= 0) {
+    if ((Number(data.newQty) < 0 && data.costPrice == "") || Number(data.costPrice) <= 0) {
       openSnakeBar("يجب ادخال تكلفة صالحة للمتابعة.");
       return false;
     }
@@ -37,7 +37,10 @@ export default function EditQtyPopup({ OnConfirm }: { OnConfirm: any; title: str
   const handleDone = async () => {
     if (loading) return;
     if (!validation()) return;
-    await OnConfirm({ qty: Number(total), costPrice: Number(data.costPrice) });
+    await OnConfirm({
+      qty: Number(total),
+      costPrice: Number(data.costPrice) * Number(data.newQty),
+    });
     setLoading(false);
   };
   const total = (Number(data?.oldQty) ?? 0) + (Number(data.newQty) ?? 0);
@@ -75,7 +78,7 @@ export default function EditQtyPopup({ OnConfirm }: { OnConfirm: any; title: str
             <TextField
               id="Glu"
               dir="rtl"
-              label="تكلفة الكمية الجديدة"
+              label="التكلفة للوحدة"
               variant="filled"
               type="number"
               className="w-full"

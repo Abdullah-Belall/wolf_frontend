@@ -102,7 +102,7 @@ export default function AddSortForm({
     editObj.data.price = Number(editObj.data.price);
     addObj.qty = Number(addObj.qty);
     addObj.price = Number(addObj.price);
-    addObj.costPrice = Number(addObj.cost);
+    addObj.costPrice = Number(addObj.cost) * addObj.qty;
     delete addObj.cost;
     delete editObj.data.qty;
     delete editObj.data.cost;
@@ -173,7 +173,7 @@ export default function AddSortForm({
               <TextField
                 id="Glu"
                 dir="rtl"
-                label="تكلفة البضاعة"
+                label="التكلفة للوحدة"
                 type="number"
                 variant="filled"
                 sx={sameTextField}
