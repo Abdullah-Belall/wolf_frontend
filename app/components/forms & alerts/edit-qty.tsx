@@ -28,7 +28,7 @@ export default function EditQtyPopup({ OnConfirm }: { OnConfirm: any; title: str
       openSnakeBar("لا يمكن ان تكون الكمية الاجمالية رقم سالب.");
       return false;
     }
-    if ((Number(data.newQty) < 0 && data.costPrice == "") || Number(data.costPrice) <= 0) {
+    if (data.costPrice == "" || Number(data.costPrice) <= 0) {
       openSnakeBar("يجب ادخال تكلفة صالحة للمتابعة.");
       return false;
     }
@@ -39,7 +39,7 @@ export default function EditQtyPopup({ OnConfirm }: { OnConfirm: any; title: str
     if (!validation()) return;
     await OnConfirm({
       qty: Number(total),
-      costPrice: Number(data.costPrice) * Number(data.newQty),
+      costPrice: Number(data.costPrice) * Math.abs(Number(data.newQty)),
     });
     setLoading(false);
   };
@@ -74,19 +74,17 @@ export default function EditQtyPopup({ OnConfirm }: { OnConfirm: any; title: str
             value={data.newQty ?? ""}
             onChange={(e) => handleData("newQty", e.target.value)}
           />
-          {data.newQty !== "" && Number(data.newQty) > 0 && (
-            <TextField
-              id="Glu"
-              dir="rtl"
-              label="التكلفة للوحدة"
-              variant="filled"
-              type="number"
-              className="w-full"
-              sx={sameTextField}
-              value={data.costPrice ?? ""}
-              onChange={(e) => handleData("costPrice", e.target.value)}
-            />
-          )}
+          <TextField
+            id="Glu"
+            dir="rtl"
+            label="التكلفة للوحدة"
+            variant="filled"
+            type="number"
+            className="w-full"
+            sx={sameTextField}
+            value={data.costPrice ?? ""}
+            onChange={(e) => handleData("costPrice", e.target.value)}
+          />
         </div>
 
         <Button
