@@ -80,7 +80,7 @@ export default function AddSortForm({
       openSnakeBar("يجب تحديد سعر للوحدة للمتابعة.");
       return false;
     }
-    if (Number(qty) * Number(price) < Number(cost)) {
+    if (Number(qty) * Number(price) < Number(qty) * Number(cost)) {
       openSnakeBar("لا يمكن ان تكون تكلفة البضاعة اقل من سعر بيع الكمية كاملة.");
       return false;
     }
