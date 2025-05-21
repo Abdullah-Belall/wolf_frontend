@@ -47,9 +47,9 @@ export default function CustomSnackbar() {
         key={popupState.snakeBarPopup.data.message + Date.now()}
         autoHideDuration={3000}
         sx={{
-          "& .css-1wckuhe-MuiPaper-root-MuiSnackbarContent-root": {
-            backgroundColor: "transparent",
-            boxShadow: "none",
+          "& .MuiSnackbarContent-root": {
+            backgroundColor: "transparent !important",
+            boxShadow: "none !important",
           },
         }}
       />
