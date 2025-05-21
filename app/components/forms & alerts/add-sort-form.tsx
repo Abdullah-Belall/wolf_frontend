@@ -32,6 +32,7 @@ export default function AddSortForm({
     color: string;
     size: string;
     qty?: string | number;
+    cost?: string | number;
     price: string | number;
     note: string;
   }>({
@@ -39,6 +40,7 @@ export default function AddSortForm({
     color: isForEdit ? isForEdit.color : "",
     size: isForEdit ? isForEdit.size : "",
     qty: isForEdit ? isForEdit.qty : "",
+    cost: "",
     price: isForEdit ? isForEdit.price : "",
     note: isForEdit ? isForEdit.note : "",
   });
@@ -53,7 +55,7 @@ export default function AddSortForm({
     setData({ ...data, [key]: typeof e === "string" ? e : e.target.value });
   };
   const vaildation = () => {
-    const { name, size, qty, price } = data;
+    const { name, size, qty, cost, price } = data;
     if (name === "") {
       openSnakeBar("يجب تحديد اسم للصنف للمتابعة.");
       return false;
@@ -70,10 +72,19 @@ export default function AddSortForm({
       openSnakeBar("يجب تحديد كمية للمتابعة.");
       return false;
     }
+    if (Number(cost) <= 0) {
+      openSnakeBar("يجب تحديد تكلفة بضاعة للمتابعة.");
+      return false;
+    }
     if (+price <= 0) {
       openSnakeBar("يجب تحديد سعر للوحدة للمتابعة.");
       return false;
     }
+    if (Number(qty) * Number(price) < Number(cost)) {
+      openSnakeBar("لا يمكن ان تكون تكلفة البضاعة اقل من سعر بيع الكمية كاملة.");
+      return false;
+    }
+
     return true;
   };
   const handleDone = async () => {
@@ -84,14 +95,17 @@ export default function AddSortForm({
       id: isForEdit?.sort_id,
       data: { ...data },
     };
-    const addObj = {
+    const addObj: any = {
       id,
       ...data,
     };
     editObj.data.price = Number(editObj.data.price);
     addObj.qty = Number(addObj.qty);
     addObj.price = Number(addObj.price);
+    addObj.costPrice = Number(addObj.cost);
+    delete addObj.cost;
     delete editObj.data.qty;
+    delete editObj.data.cost;
     const response = await CLIENT_COLLECTOR_REQ(
       isForEdit ? UPDATE_SORT_REQ : ADD_SORT_REQ,
       isForEdit ? editObj : addObj
@@ -146,7 +160,7 @@ export default function AddSortForm({
           <TextField
             id="Glu"
             dir="rtl"
-            label="السعر للوحدة"
+            label="سعر البيع للوحدة"
             type="number"
             className="w-full"
             variant="filled"
@@ -155,17 +169,30 @@ export default function AddSortForm({
             onChange={(e) => handleData("price", e)}
           />
           {!isForEdit && (
-            <TextField
-              id="Glu"
-              dir="rtl"
-              label="الكمية"
-              type="number"
-              variant="filled"
-              sx={sameTextField}
-              className="w-full"
-              value={data.qty ?? ""}
-              onChange={(e) => handleData("qty", e)}
-            />
+            <>
+              <TextField
+                id="Glu"
+                dir="rtl"
+                label="تكلفة البضاعة"
+                type="number"
+                variant="filled"
+                sx={sameTextField}
+                className="w-full"
+                value={data.cost ?? ""}
+                onChange={(e) => handleData("cost", e)}
+              />
+              <TextField
+                id="Glu"
+                dir="rtl"
+                label="الكمية"
+                type="number"
+                variant="filled"
+                sx={sameTextField}
+                className="w-full"
+                value={data.qty ?? ""}
+                onChange={(e) => handleData("qty", e)}
+              />
+            </>
           )}
         </div>
         <TextField

@@ -50,6 +50,7 @@ export interface AddSortInterface {
   color?: string;
   size: string;
   qty: number;
+  cost: number;
   price: number;
 }
 export interface PaymentInterface {

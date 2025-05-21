@@ -704,7 +704,7 @@ const UPDATE_SORT_REQ = async ({
   id,
 }: {
   id: string;
-  data: { name?: string; color: string; size: string; note?: string; qty?: number };
+  data: { name?: string; color: string; size: string; note?: string; qty?: number; cost?: number };
 }) => {
   try {
     const response: any = await axios.patch(`${BASE_URL}/products/sorts/${id}`, data, {

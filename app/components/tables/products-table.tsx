@@ -52,10 +52,10 @@ export default function ProductsTable({
     setAddSort(false);
   };
   const editQtyData = popupState.editQtyPopup.data;
-  const onQtyConfirm = async (newQty: number) => {
+  const onQtyConfirm = async (data: { qty: number; costPrice: number }) => {
     const response = await CLIENT_COLLECTOR_REQ(UPDATE_SORT_REQ, {
       id: editQtyData.id,
-      data: { qty: +newQty },
+      data,
     });
     if (response.done) {
       closePopup("editQtyPopup");
