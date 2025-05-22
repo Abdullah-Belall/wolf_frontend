@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import SelectList from "../common/select-list";
 import styles from "@/app/styles/drop-down.module.css";
 import UsersTable from "../tables/users-table";
-import { PaidStatusEnum, PaymentMethodsEnum } from "@/app/utils/types/interfaces";
 import styles2 from "@/app/styles/tables-scroll.module.css";
 import { usePopup } from "@/app/utils/contexts/popup-contexts";
 import {

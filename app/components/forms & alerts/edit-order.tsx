@@ -2,7 +2,7 @@
 import { methodsArray, paidStatusArray, sameTextField, taxArray } from "@/app/utils/base";
 import { usePopup } from "@/app/utils/contexts/popup-contexts";
 import { Button, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SelectList from "../common/select-list";
 import styles from "@/app/styles/drop-down.module.css";
 import { CLIENT_COLLECTOR_REQ, UPDATE_ORDER_REQ } from "@/app/utils/requests/client-side.requests";

@@ -11,7 +11,6 @@ import { BiCategory } from "react-icons/bi";
 import { FiCodesandbox } from "react-icons/fi";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import Link from "next/link";
-import { GiMoneyStack } from "react-icons/gi";
 
 export default function SideBar() {
   const path = usePathname();

@@ -3,14 +3,11 @@ import { formatDate } from "@/app/utils/base";
 import { usePopup } from "@/app/utils/contexts/popup-contexts";
 import { CostsInterface } from "@/app/utils/types/interfaces";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { CiEdit } from "react-icons/ci";
 
 interface CusProductInterface extends CostsInterface {
   index?: number;
 }
 export default function CostsTableRows({
-  id,
   index,
   sort,
   qty,
@@ -19,7 +16,6 @@ export default function CostsTableRows({
 }: CusProductInterface) {
   const router = useRouter();
   const { openPopup } = usePopup();
-  const [openDesc, setOpenDesc] = useState(false);
   return (
     <>
       <tr>
