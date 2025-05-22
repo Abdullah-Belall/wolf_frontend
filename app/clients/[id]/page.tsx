@@ -77,6 +77,7 @@ export default function Client() {
         </div>
         <div className="w-full">
           <OrdersTable
+            refetch={fetchData}
             data={data?.orders as OrderInterface[]}
             tableFor="client"
             title="الطلبات المسجلة للعميل"
