@@ -8,7 +8,7 @@ import {
   GET_MY_PROFILE_REQ,
 } from "@/app/utils/requests/client-side.requests";
 import { useUser } from "@/app/utils/contexts/UserContext";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "@/public/Logo.jpg";
 import Link from "next/link";
@@ -17,6 +17,7 @@ export default function Header() {
   const router = useRouter();
   const [list, setList] = useState(false);
   const { user, setUser } = useUser();
+  const path = usePathname();
   const handleClose = () => {
     setList(false);
   };
@@ -31,6 +32,9 @@ export default function Header() {
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    setList(false);
+  }, [path]);
   return (
     <header className="fixed z-20 left-0 top-0 bg-myLight w-full border-b border-b-mdLight shadow-b-md flex flex-row-reverse justify-between items-center">
       {list && (
