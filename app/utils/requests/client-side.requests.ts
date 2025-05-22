@@ -751,6 +751,55 @@ const UPDATE_PASSWORD_REQ = async (data: { password?: string; new_password?: str
     };
   }
 };
+const UPDATE_ORDER_REQ = async ({
+  data,
+  id,
+}: {
+  id: string;
+  data: { tax: number; discount: number; payment_method: string; paid_status: string };
+}) => {
+  try {
+    const response: any = await axios.patch(`${BASE_URL}/orders/${id}`, data, {
+      headers: { Authorization: `Bearer ${getCookie("access_token")}` },
+    });
+    if (response?.data?.done) {
+      return { done: true };
+    } else {
+      return { done: false, message: unCountedMessage, status: response.status };
+    }
+  } catch (error: any) {
+    console.log(error);
+    let message = unCountedMessage;
+    if (error?.response?.status !== 400) {
+      message = error?.response?.data?.message;
+    }
+    return {
+      done: false,
+      message: message,
+      status: error.status,
+    };
+  }
+};
+const GET_ALL_COSTS_REQ = async () => {
+  try {
+    const response: any = await axios.get(`${BASE_URL}/products/costs`, {
+      headers: { Authorization: `Bearer ${getCookie("access_token")}` },
+    });
+    return response?.data.costs
+      ? { done: true, data: response?.data }
+      : { done: false, message: unCountedMessage, status: response.status };
+  } catch (error: any) {
+    let message = unCountedMessage;
+    if (error?.response?.status !== 400) {
+      message = error?.response?.data?.message;
+    }
+    return {
+      done: false,
+      message: message,
+      status: error.status,
+    };
+  }
+};
 //!===============
 const REFRESH_TOKEN_REQ = async () => {
   try {
@@ -833,4 +882,6 @@ export {
   UPDATE_SORT_REQ,
   ADD_WORKER_CONTACT_REQ,
   UPDATE_PASSWORD_REQ,
+  UPDATE_ORDER_REQ,
+  GET_ALL_COSTS_REQ,
 };

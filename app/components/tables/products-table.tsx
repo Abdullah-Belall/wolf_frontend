@@ -11,6 +11,7 @@ import { ProductInterface } from "@/app/utils/types/interfaces";
 import EditQtyPopup from "../forms & alerts/edit-qty";
 import { CLIENT_COLLECTOR_REQ, UPDATE_SORT_REQ } from "@/app/utils/requests/client-side.requests";
 import AddProductForm from "../forms & alerts/add-product-form";
+import NoData from "../common/no-data";
 
 export default function ProductsTable({
   title,
@@ -96,6 +97,7 @@ export default function ProductsTable({
           />
         ))}
       </MainTable>
+      {data.length === 0 && <NoData />}
       {popupState.sortsPopup.isOpen && (
         <>
           <BlackLayer

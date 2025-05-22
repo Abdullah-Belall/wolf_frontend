@@ -47,7 +47,7 @@ export default function BasicList() {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <LogoutIcon className="text-red-700" />
+              <LogoutIcon className="text-red-600" />
             </ListItemIcon>
             <ListItemText
               onClick={handleSignOut}
@@ -56,7 +56,7 @@ export default function BasicList() {
                   fontFamily: "cairo",
                 },
               }}
-              className={"text-end text-nowrap text-red-700"}
+              className={"text-end text-nowrap text-red-600"}
               primary="تسجيل الخروج"
             />
           </ListItemButton>

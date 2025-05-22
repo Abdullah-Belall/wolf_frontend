@@ -12,37 +12,8 @@ import {
   CLIENT_COLLECTOR_REQ,
   GET_ALL_CLIENTS_REQ,
 } from "@/app/utils/requests/client-side.requests";
-import { sameTextField } from "@/app/utils/base";
+import { methodsArray, paidStatusArray, sameTextField, taxArray } from "@/app/utils/base";
 
-interface DropDownsInterface {
-  value: PaymentMethodsEnum | PaidStatusEnum;
-  label: string;
-}
-
-const methodsArray: DropDownsInterface[] = [
-  { value: PaymentMethodsEnum.CASH, label: "كاش" },
-  { value: PaymentMethodsEnum.BANK_TRANSFER, label: "تحويل بنكي" },
-  { value: PaymentMethodsEnum.VF_CASH, label: "فودافون كاش" },
-];
-
-const paidStatusArray: DropDownsInterface[] = [
-  { value: PaidStatusEnum.PAID, label: "دفع الأن" },
-  { value: PaidStatusEnum.PENDING, label: "لم يدفع بعد" },
-];
-const taxArray = [
-  {
-    value: "",
-    label: "بدون ضريبة",
-  },
-  {
-    value: "13%",
-    label: "13%",
-  },
-  {
-    value: "14%",
-    label: "14%",
-  },
-];
 export default function AddOrderForm({ onAdded }: any) {
   const [data, setData] = useState([]);
   const { openPopup, popupState } = usePopup();
@@ -121,7 +92,10 @@ export default function AddOrderForm({ onAdded }: any) {
       openSnakeBar("لا يمكن ان يكون الخصم بالسالب.");
       return false;
     }
-    if (Number(formData.discount) > totalPriceAfter) {
+    if (
+      Number(formData.discount) >
+      totalPrice * (formData.tax === "" ? 1 : Number(formData.tax.slice(0, 2)) / 100 + 1)
+    ) {
       openSnakeBar("لا يمكن ان يكون الخصم اكبر من اجمالي السعر.");
       return false;
     }
@@ -253,7 +227,7 @@ export default function AddOrderForm({ onAdded }: any) {
           label="اجمالي السعر بعد الضريبة والخصم"
           variant="filled"
           sx={sameTextField}
-          value={totalPriceAfter.toFixed(2)}
+          value={totalPriceAfter.toFixed(2).toLocaleString()}
           className="w-full"
           disabled
         />
@@ -263,7 +237,7 @@ export default function AddOrderForm({ onAdded }: any) {
           label="اجمالي السعر"
           variant="filled"
           sx={sameTextField}
-          value={totalPrice}
+          value={totalPrice.toLocaleString()}
           className="w-full"
           disabled
         />

@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { PopupProvider } from "./utils/contexts/popup-contexts";
 import CustomSnackbar from "./components/common/custom-snakebar";
 import { UserProvider } from "./utils/contexts/UserContext";
+import { useEffect } from "react";
 
 export default function RootLayout({
   children,
@@ -15,7 +16,18 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const isLoginRoute = pathname === "/log-in";
+  useEffect(() => {
+    document.title = "AL MANAR";
 
+    const link = document.createElement("link");
+    link.rel = "icon";
+    link.href = "/logo.png";
+    document.head.appendChild(link);
+
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
   return (
     <html lang="en">
       <body

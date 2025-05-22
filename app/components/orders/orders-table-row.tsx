@@ -1,10 +1,11 @@
 "use client";
-import { formatDate } from "@/app/utils/base";
+import { formatDate, methodsArray, paidStatusArray } from "@/app/utils/base";
 import { usePopup } from "@/app/utils/contexts/popup-contexts";
 import Link from "next/link";
+import { CiEdit } from "react-icons/ci";
 
 export default function OrdersTableRow({
-  earnig,
+  earning,
   payment_method,
   payment_status,
   date,
@@ -17,7 +18,7 @@ export default function OrdersTableRow({
 }: {
   index: number;
   id: string;
-  earnig: number;
+  earning: number;
   payment_method: string;
   payment_status: string;
   date: Date;
@@ -29,8 +30,8 @@ export default function OrdersTableRow({
   tax: string;
   discount: number;
 }) {
-  const formattedEarnig = earnig.toLocaleString();
-  let totalPriceAfter = earnig;
+  const formattedEarnig = earning.toLocaleString();
+  let totalPriceAfter = earning;
   if (tax != "0") {
     totalPriceAfter = (totalPriceAfter * Number(tax)) / 100 + totalPriceAfter;
   }
@@ -38,12 +39,38 @@ export default function OrdersTableRow({
     totalPriceAfter -= discount;
   }
   const { openPopup } = usePopup();
+  const paymentMethodSlug = (method: string) => {
+    return methodsArray.find((e) => e.value === method)?.label;
+  };
+  const paymentStatusSlug = (status: string) => {
+    return paidStatusArray.find((e) => e.value === status)?.label;
+  };
   return (
     <>
       <tr>
+        <td className="px-4 py-2 text-center">
+          <div dir="rtl" className="w-fit ml-auto flex items-center gap-2 mx-auto">
+            <p
+              onClick={() =>
+                openPopup("editOrderPopup", {
+                  id,
+                  tax: `${tax}%`,
+                  discount,
+                  earning,
+                  payment_method,
+                  payment_status,
+                  index,
+                })
+              }
+              className="w-fit text-xl hover:text-red-600 cursor-pointer text-anotherDark"
+            >
+              <CiEdit />
+            </p>
+          </div>
+        </td>
         <td className="px-4 py-2 text-center">{formatDate(date)}</td>
-        <td className="px-4 py-2 text-center">{payment_status}</td>
-        <td className="px-4 py-2 text-center">{payment_method}</td>
+        <td className="px-4 py-2 text-center">{paymentStatusSlug(payment_status)}</td>
+        <td className="px-4 py-2 text-center">{paymentMethodSlug(payment_method)}</td>
         <td className="px-4 py-2 text-center">{totalPriceAfter.toLocaleString()}</td>
         <td className="px-4 py-2 text-center">{discount} ج.م</td>
         <td className="px-4 py-2 text-center">{tax}%</td>

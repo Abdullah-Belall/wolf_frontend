@@ -43,7 +43,7 @@ export default function SortsTableRows({
                   refetchOnEdit,
                 })
               }
-              className="w-fit text-xl hover:text-red-700 cursor-pointer text-anotherDark"
+              className="w-fit text-xl hover:text-red-600 cursor-pointer text-anotherDark"
             >
               <CiEdit />
             </p>

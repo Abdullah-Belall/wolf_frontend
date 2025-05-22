@@ -23,7 +23,7 @@ export default function PhonesTabelRow({
               <div dir="rtl" className="w-fit ml-auto flex items-center gap-2 mx-auto">
                 <p
                   onClick={() => openPopup("editPhonePopup", { phone, note, id })}
-                  className="w-fit text-xl hover:text-red-700 cursor-pointer text-anotherDark"
+                  className="w-fit text-xl hover:text-red-600 cursor-pointer text-anotherDark"
                 >
                   <CiEdit />
                 </p>

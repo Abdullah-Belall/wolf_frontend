@@ -7,29 +7,13 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { Button } from "@mui/material";
 import { cairo } from "@/app/utils/fonts/main.font";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { SidebarItemInterface } from "@/app/utils/types/interfaces";
 
-export default function SideBarList({
-  icon,
-  title,
-  secTitle,
-  lastTitle,
-  data: { firstPath, secPath, lastPath },
-}: {
-  icon: any;
-  title: string;
-  secTitle: string;
-  lastTitle?: string;
-  data: {
-    firstPath: string;
-    secPath: string;
-    lastPath?: string;
-  };
-}) {
-  const router = useRouter();
+export default function SideBarList({ title, icon, affiliateLinks }: SidebarItemInterface) {
   const path = usePathname();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(!open);
   };
@@ -49,43 +33,19 @@ export default function SideBarList({
 
       <Collapse className="mt-mainxs" in={open} timeout="auto" unmountOnExit>
         <List className="w-full flex flex-col gap-mainxs" component="div" disablePadding>
-          <Link className="w-full" href={firstPath}>
-            <Button
-              className={`${
-                path === firstPath ? "!bg-[#f1f1f1]" : ""
-              } w-full group !rounded-md !justify-end !pe-[32px] !text-secDark !text-[16px] !font-[500] !py-1 hover:bg-myHover!`}
-              variant="text"
-              sx={{ fontFamily: cairo.style.fontFamily }}
-            >
-              كل {title}
-            </Button>
-          </Link>
-          {lastTitle && lastPath && (
-            <Link className="w-full" href={lastPath}>
+          {affiliateLinks.map((e) => (
+            <Link key={e.title} className="w-full" href={e.link}>
               <Button
-                onClick={() => router.push(lastPath as string)}
                 className={`${
-                  path === (lastPath as string) ? "!bg-[#f1f1f1]" : ""
+                  path === e.link ? "!bg-[#f1f1f1]" : ""
                 } w-full group !rounded-md !justify-end !pe-[32px] !text-secDark !text-[16px] !font-[500] !py-1 hover:bg-myHover!`}
                 variant="text"
                 sx={{ fontFamily: cairo.style.fontFamily }}
               >
-                {lastTitle}
+                {e.title}
               </Button>
             </Link>
-          )}
-          <Link className="w-full" href={firstPath + secPath}>
-            <Button
-              onClick={() => router.push(firstPath + secPath)}
-              className={`${
-                path === firstPath + secPath ? "!bg-[#f1f1f1]" : ""
-              } w-full group !rounded-md !justify-end !pe-[32px] !text-secDark !text-[16px] !font-[500] !py-1 hover:bg-myHover!`}
-              variant="text"
-              sx={{ fontFamily: cairo.style.fontFamily }}
-            >
-              اضافة {secTitle}
-            </Button>
-          </Link>
+          ))}
         </List>
       </Collapse>
     </List>

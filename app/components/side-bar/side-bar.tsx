@@ -11,6 +11,7 @@ import { BiCategory } from "react-icons/bi";
 import { FiCodesandbox } from "react-icons/fi";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import Link from "next/link";
+import { GiMoneyStack } from "react-icons/gi";
 
 export default function SideBar() {
   const path = usePathname();
@@ -20,10 +21,8 @@ export default function SideBar() {
         <SideBarList
           key={index}
           title={item.title}
-          secTitle={item.secTitle}
           icon={item.icon}
-          data={item.data}
-          lastTitle={item.lastTitle}
+          affiliateLinks={item.affiliateLinks}
         />
       )),
     []
@@ -67,30 +66,61 @@ export default function SideBar() {
           <IoIosCheckmarkCircleOutline className="opacity-50 group-hover:opacity-100" />
         </Button>
       </Link>
-
       {dataItems}
     </aside>
   );
 }
 //
+const sameClass = "opacity-50 group-hover:opacity-100";
 const sideBarItems = [
   {
     title: "المنتجات",
-    lastTitle: "فاتورة",
-    secTitle: "منتج",
-    icon: <FiCodesandbox className="opacity-50 group-hover:opacity-100" />,
-    data: { firstPath: "/products", secPath: "/add-product", lastPath: "/products/sorts" },
+    icon: <FiCodesandbox className={sameClass} />,
+    affiliateLinks: [
+      {
+        title: "كل المنتجات",
+        link: "/products",
+      },
+      {
+        title: "التكاليف",
+        link: "/products/costs",
+      },
+      {
+        title: "الفواتير",
+        link: "/products/sorts",
+      },
+      {
+        title: "اضافة منتج",
+        link: "/products/add-product",
+      },
+    ],
   },
   {
     title: "العملاء",
-    secTitle: "عميل",
-    icon: <FaPerson className="opacity-50 group-hover:opacity-100" />,
-    data: { firstPath: "/clients", secPath: "/add-client" },
+    icon: <FaPerson className={sameClass} />,
+    affiliateLinks: [
+      {
+        title: "كل العملاء",
+        link: "/clients",
+      },
+      {
+        title: "اضافة عميل",
+        link: "/clients/add-client",
+      },
+    ],
   },
   {
     title: "الموظفين",
-    secTitle: "موظف",
-    icon: <FaIdCardAlt className="opacity-50 group-hover:opacity-100" />,
-    data: { firstPath: "/workers", secPath: "/add-worker" },
+    icon: <FaIdCardAlt className={sameClass} />,
+    affiliateLinks: [
+      {
+        title: "كل الموظفين",
+        link: "/workers",
+      },
+      {
+        title: "اضافة عميل",
+        link: "/workers/add-worker",
+      },
+    ],
   },
 ];

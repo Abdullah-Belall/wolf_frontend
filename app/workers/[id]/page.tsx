@@ -70,7 +70,7 @@ export default function Worker() {
             </div>
 
             {data?.is_banned && (
-              <Chip label="محظور" style={{ fontFamily: "cairo" }} className={"!text-red-700"} />
+              <Chip label="محظور" style={{ fontFamily: "cairo" }} className={"!text-red-600"} />
             )}
           </div>
           {/* display none if this is owner or the person is admin */}

@@ -1,4 +1,5 @@
 "use client";
+import NoData from "../common/no-data";
 import AllSortsTableRows from "../products/all-sorts-rows";
 import MainTable from "./main-table";
 import { SortInterface } from "@/app/utils/types/interfaces";
@@ -36,6 +37,7 @@ export default function AllSortsTable({ data }: { data: SortInterface[] }) {
           />
         ))}
       </MainTable>
+      {data.length === 0 && <NoData />}
     </>
   );
 }

@@ -7,6 +7,7 @@ import {
   GET_ORDER_ITEMS_REQ,
 } from "@/app/utils/requests/client-side.requests";
 import { useRouter } from "next/navigation";
+import NoData from "../common/no-data";
 
 export default function OrderItemsTable({ title, id }: { title: string; id: string }) {
   const router = useRouter();
@@ -41,6 +42,7 @@ export default function OrderItemsTable({ title, id }: { title: string; id: stri
           />
         ))}
       </MainTable>
+      {data.length === 0 && <NoData />}
     </>
   );
 }

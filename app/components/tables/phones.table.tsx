@@ -13,6 +13,7 @@ import {
 } from "@/app/utils/requests/client-side.requests";
 import { useState } from "react";
 import { Button } from "@mui/material";
+import NoData from "../common/no-data";
 
 export default function PhonesTable({
   type,
@@ -63,6 +64,7 @@ export default function PhonesTable({
             <PhonesTabelRow key={index} type={type} data={{ ...row, index: index + 1 }} />
           ))}
         </MainTable>
+        {data.length === 0 && <NoData />}
         {type === "العميل" && (
           <div className="!absolute left-[5px] top-[-5px] flex gap-2 items-center">
             <Button

@@ -1,3 +1,5 @@
+import { ReactElement } from "react";
+
 export interface LoginInterface {
   user_name: string;
   password: string;
@@ -173,4 +175,26 @@ export interface AddClientContactInterface {
   phone: string;
   note: string | null;
   user_id: string;
+}
+export interface DropDownsInterface {
+  value: PaymentMethodsEnum | PaidStatusEnum;
+  label: string;
+}
+export interface CostsInterface {
+  id: string;
+  sort: SortInterface;
+  qty: number;
+  price: number;
+  created_at: Date;
+  updated_at?: Date;
+}
+interface AffiliateLink {
+  title: string;
+  link: string;
+}
+
+export interface SidebarItemInterface {
+  title: string;
+  icon: ReactElement;
+  affiliateLinks: AffiliateLink[];
 }

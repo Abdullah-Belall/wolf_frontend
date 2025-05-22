@@ -1,3 +1,5 @@
+import { DropDownsInterface, PaidStatusEnum, PaymentMethodsEnum } from "./types/interfaces";
+
 export const BaseWebsiteUrl = process.env.NEXT_PUBLIC_BASE_WEBSITE_URL || "http://localhost:3000";
 export const unCountedMessage = "هناك مشكلة ما, الرجاء المحاولة في وقت لاحق.";
 export const formatDate = (inputDate: Date) => {
@@ -48,3 +50,27 @@ export const sameTextField = {
     fontSize: "14px",
   },
 };
+export const taxArray = [
+  {
+    value: "",
+    label: "بدون ضريبة",
+  },
+  {
+    value: "13%",
+    label: "13%",
+  },
+  {
+    value: "14%",
+    label: "14%",
+  },
+];
+export const methodsArray: DropDownsInterface[] = [
+  { value: PaymentMethodsEnum.CASH, label: "كاش" },
+  { value: PaymentMethodsEnum.BANK_TRANSFER, label: "تحويل بنكي" },
+  { value: PaymentMethodsEnum.VF_CASH, label: "فودافون كاش" },
+];
+
+export const paidStatusArray: DropDownsInterface[] = [
+  { value: PaidStatusEnum.PAID, label: "دفع الأن" },
+  { value: PaidStatusEnum.PENDING, label: "لم يدفع بعد" },
+];

@@ -5,18 +5,23 @@ import BlackLayer from "../common/black-layer";
 import PopupHolder from "../common/popup-holder";
 import OrderItemsPopUp from "../orders/order-items-popup";
 import { OrderInterface } from "@/app/utils/types/interfaces";
+import EditOrderPopup from "../forms & alerts/edit-order";
+import NoData from "../common/no-data";
 
 export default function OrdersTable({
   title,
   tableFor,
   data,
+  refetch,
 }: {
   title: string;
   tableFor: "client" | "overview";
   data: OrderInterface[];
+  refetch: any;
 }) {
   const { closePopup, popupState } = usePopup();
   const headers = [
+    "العمليات",
     "التاريخ",
     "حالة الدفع",
     "طريقة الدفع",
@@ -31,12 +36,7 @@ export default function OrdersTable({
   if (tableFor === "client") {
     headers.splice(5, 1);
   }
-  const paymentMethodSlug = (method: string) => {
-    return paymentMethodsSlug.find((e) => e.name === method)?.slug;
-  };
-  const paymentStatusSlug = (status: string) => {
-    return paymentStatusesSlug.find((e) => e.name === status)?.slug;
-  };
+
   return (
     <>
       <MainTable title={title} headers={headers}>
@@ -46,9 +46,9 @@ export default function OrdersTable({
             id={row.id}
             client={{ client_id: row?.client?.id, name: row?.client?.user_name }}
             index={index + 1}
-            earnig={+row.total_price}
-            payment_method={paymentMethodSlug(row.payment.payment_method) as string}
-            payment_status={paymentStatusSlug(row.payment.status) as string}
+            earning={+row.total_price}
+            payment_method={row.payment.payment_method}
+            payment_status={row.payment.status}
             date={row.created_at}
             tableFor={tableFor}
             tax={row.tax}
@@ -56,6 +56,7 @@ export default function OrdersTable({
           />
         ))}
       </MainTable>
+      {data.length === 0 && <NoData />}
       {popupState.ordersPopup.isOpen && (
         <>
           <BlackLayer onClick={() => closePopup("ordersPopup")} />
@@ -67,16 +68,14 @@ export default function OrdersTable({
           </PopupHolder>
         </>
       )}
+      {popupState.editOrderPopup.isOpen && (
+        <>
+          <BlackLayer onClick={() => closePopup("editOrderPopup")} />
+          <PopupHolder>
+            <EditOrderPopup refetch={refetch} />
+          </PopupHolder>
+        </>
+      )}
     </>
   );
 }
-
-const paymentMethodsSlug = [
-  { name: "bank_transfer", slug: "تحويل بنكي" },
-  { name: "vf_cash", slug: "فودافون كاش" },
-  { name: "cash", slug: "كاش" },
-];
-const paymentStatusesSlug = [
-  { name: "paid", slug: "مدفوع" },
-  { name: "pending", slug: "غير مدفوع" },
-];

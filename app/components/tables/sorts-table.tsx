@@ -9,6 +9,7 @@ import {
 import { ProductItemInterface } from "@/app/utils/types/interfaces";
 import { usePopup } from "@/app/utils/contexts/popup-contexts";
 import { useRouter } from "next/navigation";
+import NoData from "../common/no-data";
 
 export default function SortsTable({ title, id }: { id: string; title: string }) {
   const router = useRouter();
@@ -60,6 +61,7 @@ export default function SortsTable({ title, id }: { id: string; title: string })
           />
         ))}
       </MainTable>
+      {data.length === 0 && <NoData />}
     </>
   );
 }

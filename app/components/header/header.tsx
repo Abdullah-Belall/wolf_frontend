@@ -11,6 +11,7 @@ import { useUser } from "@/app/utils/contexts/UserContext";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "@/public/Logo.jpg";
+import Link from "next/link";
 
 export default function Header() {
   const router = useRouter();
@@ -40,9 +41,9 @@ export default function Header() {
           </div>
         </>
       )}
-      <div className="font-bold pr-mainxxl">
+      <Link href={"/"} className="font-bold mr-mainxxl">
         <Image width={70} height={70} src={logo} alt={"لوجو"} />
-      </div>
+      </Link>
       <div
         onClick={() => setList(!list)}
         className={`${

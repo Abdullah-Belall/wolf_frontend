@@ -11,6 +11,7 @@ import {
   CLIENT_COLLECTOR_REQ,
   DELETE_CATEGORY_REQ,
 } from "@/app/utils/requests/client-side.requests";
+import NoData from "../common/no-data";
 
 export default function CategoriesTable({
   data,
@@ -52,6 +53,7 @@ export default function CategoriesTable({
           />
         ))}
       </MainTable>
+      {data.length === 0 && <NoData />}
       {popupState.editCategoryPopup.isOpen && (
         <>
           <BlackLayer onClick={() => closePopup("editCategoryPopup")} />
