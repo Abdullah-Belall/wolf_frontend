@@ -1,10 +1,15 @@
 "use client";
 
+import { sameTextField } from "@/app/utils/base";
 import { usePopup } from "@/app/utils/contexts/popup-contexts";
+import { ReturnsDataType, useReturns } from "@/app/utils/contexts/returns-contexts";
+import { TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function OrderItemsTableRow({
   index,
+  id,
   product,
   name,
   size,
@@ -13,6 +18,7 @@ export default function OrderItemsTableRow({
   unit_price,
 }: {
   index: number;
+  id: string;
   product: {
     id: string;
     name: string;
@@ -27,7 +33,19 @@ export default function OrderItemsTableRow({
   const formattedEarnig = (unit_price * qty).toLocaleString();
   const formattedUnitPrice = unit_price.toLocaleString();
   const { openPopup } = usePopup();
-  console.log("color", color);
+  const { returns, setReturns } = useReturns();
+  const [val, setVal] = useState("");
+  useEffect(() => {
+    if (returns?.isActive) {
+      if (val !== "") {
+        const filterd = (returns?.data?.filter((e) => e.id !== id) as ReturnsDataType[]) || [];
+        setReturns({ isActive: true, data: [...filterd, { id, qty: Number(val) }] });
+      } else {
+        const filterd = (returns?.data?.filter((e) => e.id !== id) as ReturnsDataType[]) || [];
+        setReturns({ isActive: true, data: filterd });
+      }
+    }
+  }, [val]);
   return (
     <>
       <tr>
@@ -48,7 +66,26 @@ export default function OrderItemsTableRow({
             {product.name}
           </p>
         </td>
-        <td className="px-4 py-2 text-center">{index}</td>
+        <td className="px-4 py-2 text-center max-w-[80px]">
+          {returns?.isActive ? (
+            <TextField
+              id="Glu"
+              dir="rtl"
+              label="الكمية"
+              variant="filled"
+              sx={sameTextField}
+              value={val}
+              onChange={(e) =>
+                +e.target.value > +qty
+                  ? setVal(qty.toString())
+                  : setVal(e.target.value.replace(/[^0-9.]/g, ""))
+              }
+              disabled={qty == 0}
+            />
+          ) : (
+            index
+          )}
+        </td>
       </tr>
     </>
   );

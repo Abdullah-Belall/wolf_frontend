@@ -8,6 +8,7 @@ import { PopupProvider } from "./utils/contexts/popup-contexts";
 import CustomSnackbar from "./components/common/custom-snakebar";
 import { UserProvider } from "./utils/contexts/UserContext";
 import { useEffect } from "react";
+import { ReturnsProvider } from "./utils/contexts/returns-contexts";
 
 export default function RootLayout({
   children,
@@ -37,10 +38,12 @@ export default function RootLayout({
       >
         <PopupProvider>
           <UserProvider>
-            <CustomSnackbar />
-            {!isLoginRoute && <SideBar />}
-            {!isLoginRoute && <Header />}
-            {children}
+            <ReturnsProvider>
+              <CustomSnackbar />
+              {!isLoginRoute && <SideBar />}
+              {!isLoginRoute && <Header />}
+              {children}
+            </ReturnsProvider>
           </UserProvider>
         </PopupProvider>
       </body>

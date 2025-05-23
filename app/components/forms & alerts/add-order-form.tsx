@@ -91,6 +91,14 @@ export default function AddOrderForm({ onAdded }: any) {
       openSnakeBar("لا يمكن ان يكون الخصم بالسالب.");
       return false;
     }
+    console.log(Number(formData.discount));
+    console.log(
+      totalPrice * (formData.tax === "" ? 1 : Number(formData.tax.slice(0, 2)) / 100 + 1)
+    );
+    console.log(
+      Number(formData.discount) >
+        totalPrice * (formData.tax === "" ? 1 : Number(formData.tax.slice(0, 2)) / 100 + 1)
+    );
     if (
       Number(formData.discount) >
       totalPrice * (formData.tax === "" ? 1 : Number(formData.tax.slice(0, 2)) / 100 + 1)
@@ -200,7 +208,7 @@ export default function AddOrderForm({ onAdded }: any) {
         />
         <SelectList
           placeHolder="ضريبة القيمة المضافة"
-          select={formData.tax !== "" ? getSlug(taxArray, formData.tax) : "ضريبة القيمة المضافة"}
+          select={getSlug(taxArray, formData.tax) ?? "ضريبة القيمة المضافة"}
           onClick={() => handleOpenDropDown("tax", true)}
           onBlur={() => handleOpenDropDown("tax", false)}
           dropDown={openDropDown.tax}
@@ -226,7 +234,7 @@ export default function AddOrderForm({ onAdded }: any) {
           label="اجمالي السعر بعد الضريبة والخصم"
           variant="filled"
           sx={sameTextField}
-          value={totalPriceAfter.toFixed(2).toLocaleString()}
+          value={Number(totalPriceAfter.toFixed(2)).toLocaleString()}
           className="w-full"
           disabled
         />
@@ -236,7 +244,7 @@ export default function AddOrderForm({ onAdded }: any) {
           label="اجمالي السعر"
           variant="filled"
           sx={sameTextField}
-          value={totalPrice.toLocaleString()}
+          value={Number(totalPrice.toFixed(2)).toLocaleString()}
           className="w-full"
           disabled
         />

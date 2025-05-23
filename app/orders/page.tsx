@@ -20,10 +20,8 @@ export default function Orders() {
     fetchData();
   }, []);
   return (
-    <>
-      <div className="px-mainxs">
-        <OrdersTable data={data} tableFor="overview" title="كل الطلبات" refetch={fetchData} />
-      </div>
-    </>
+    <div className="px-mainxs">
+      <OrdersTable data={data} tableFor="overview" title="كل الطلبات" refetch={fetchData} />
+    </div>
   );
 }

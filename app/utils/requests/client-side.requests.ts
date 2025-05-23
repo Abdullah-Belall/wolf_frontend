@@ -800,6 +800,49 @@ const GET_ALL_COSTS_REQ = async () => {
     };
   }
 };
+const MAKE_RETURNS_REQ = async ({ id, data }: { id: string; data: { qty: number } }) => {
+  try {
+    const response: any = await axios.post(`${BASE_URL}/orders/returns/${id}`, data, {
+      headers: { Authorization: `Bearer ${getCookie("access_token")}` },
+    });
+    if (response?.data?.done) {
+      return { done: true };
+    } else {
+      return { done: false, message: unCountedMessage, status: response.status };
+    }
+  } catch (error: any) {
+    console.log(error);
+    let message = unCountedMessage;
+    if (error?.response?.status !== 400) {
+      message = error?.response?.data?.message;
+    }
+    return {
+      done: false,
+      message: message,
+      status: error.status,
+    };
+  }
+};
+const GET_ALL_RETURNS_REQ = async () => {
+  try {
+    const response: any = await axios.get(`${BASE_URL}/orders/returns`, {
+      headers: { Authorization: `Bearer ${getCookie("access_token")}` },
+    });
+    return response?.data.returns
+      ? { done: true, data: response?.data }
+      : { done: false, message: unCountedMessage, status: response.status };
+  } catch (error: any) {
+    let message = unCountedMessage;
+    if (error?.response?.status !== 400) {
+      message = error?.response?.data?.message;
+    }
+    return {
+      done: false,
+      message: message,
+      status: error.status,
+    };
+  }
+};
 //!===============
 const REFRESH_TOKEN_REQ = async () => {
   try {
@@ -884,4 +927,6 @@ export {
   UPDATE_PASSWORD_REQ,
   UPDATE_ORDER_REQ,
   GET_ALL_COSTS_REQ,
+  MAKE_RETURNS_REQ,
+  GET_ALL_RETURNS_REQ,
 };

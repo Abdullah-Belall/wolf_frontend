@@ -198,3 +198,44 @@ export interface SidebarItemInterface {
   icon: ReactElement;
   affiliateLinks: AffiliateLink[];
 }
+
+interface Product {
+  id: string;
+  name: string;
+}
+
+interface Sort {
+  id: string;
+  name: string;
+  color: string;
+  size: string;
+  qty: number;
+  product: Product;
+}
+
+interface Client {
+  id: string;
+  user_name: string;
+}
+
+interface Order {
+  id: string;
+  client: Client;
+}
+
+interface OrderItem {
+  id: string;
+  qty: number;
+  unit_price: string;
+  order: Order;
+  sort: Sort;
+}
+
+export interface ReturnedItemInterface {
+  id: string;
+  qty: number;
+  reason: string | null;
+  created_at: Date;
+  updated_at: Date;
+  order_item: OrderItem;
+}

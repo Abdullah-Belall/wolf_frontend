@@ -7,6 +7,7 @@ import OrderItemsPopUp from "../orders/order-items-popup";
 import { OrderInterface } from "@/app/utils/types/interfaces";
 import EditOrderPopup from "../forms & alerts/edit-order";
 import NoData from "../common/no-data";
+import { useReturns } from "@/app/utils/contexts/returns-contexts";
 
 export default function OrdersTable({
   title,
@@ -20,6 +21,7 @@ export default function OrdersTable({
   refetch: any;
 }) {
   const { closePopup, popupState } = usePopup();
+  const { returns, setReturns, closeReturns } = useReturns();
   const headers = [
     "العمليات",
     "التاريخ",
@@ -56,12 +58,18 @@ export default function OrdersTable({
           />
         ))}
       </MainTable>
-      {data.length === 0 && <NoData />}
+      {data?.length === 0 && <NoData />}
       {popupState.ordersPopup.isOpen && (
         <>
-          <BlackLayer onClick={() => closePopup("ordersPopup")} />
+          <BlackLayer
+            onClick={() => {
+              closePopup("ordersPopup");
+              closeReturns();
+            }}
+          />
           <PopupHolder>
             <OrderItemsPopUp
+              refetchOrders={refetch}
               index={popupState.ordersPopup.data.index}
               id={popupState.ordersPopup.data.id}
             />

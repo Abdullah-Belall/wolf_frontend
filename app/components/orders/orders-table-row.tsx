@@ -3,7 +3,6 @@ import { formatDate, methodsArray, paidStatusArray } from "@/app/utils/base";
 import { usePopup } from "@/app/utils/contexts/popup-contexts";
 import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
-
 export default function OrdersTableRow({
   earning,
   payment_method,

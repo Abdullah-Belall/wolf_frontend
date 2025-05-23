@@ -11,6 +11,7 @@ import { BiCategory } from "react-icons/bi";
 import { FiCodesandbox } from "react-icons/fi";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import Link from "next/link";
+import { MdAssignmentReturned } from "react-icons/md";
 
 export default function SideBar() {
   const path = usePathname();
@@ -63,6 +64,18 @@ export default function SideBar() {
         >
           الطلبات
           <IoIosCheckmarkCircleOutline className="opacity-50 group-hover:opacity-100" />
+        </Button>
+      </Link>
+      <Link className="w-full" href={"/returns"}>
+        <Button
+          className={`${
+            path === "/returns" ? "!bg-[#f1f1f1]" : ""
+          } group w-full !rounded-md !text-start !px-mainxs !flex !gap-[5px] !items-center !justify-end !text-secDark !text-[16px] !font-[500] !py-1 hover:bg-myHover!`}
+          variant="text"
+          sx={{ fontFamily: cairo.style.fontFamily }}
+        >
+          المرتجعات
+          <MdAssignmentReturned className="opacity-50 group-hover:opacity-100" />
         </Button>
       </Link>
       {dataItems}

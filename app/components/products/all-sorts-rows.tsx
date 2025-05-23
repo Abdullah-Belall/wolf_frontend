@@ -56,21 +56,19 @@ export default function AllSortsTableRows({
         <td className="px-4 py-2 text-center">{name}</td>
         <td className="px-4 py-2 text-center">{product?.name}</td>
         <td className="px-4 py-2 text-center max-w-[69px]">
-          {
-            <TextField
-              id="Glu"
-              dir="rtl"
-              label="الكمية"
-              type="number"
-              variant="filled"
-              sx={sameTextField}
-              value={inputValue?.qty ?? ""}
-              onChange={(e) =>
-                +e.target.value > +qty ? handleInputs(qty.toString()) : handleInputs(e.target.value)
-              }
-              disabled={qty == 0}
-            />
-          }
+          <TextField
+            id="Glu"
+            dir="rtl"
+            label="الكمية"
+            type="number"
+            variant="filled"
+            sx={sameTextField}
+            value={inputValue?.qty ?? ""}
+            onChange={(e) =>
+              +e.target.value > +qty ? handleInputs(qty.toString()) : handleInputs(e.target.value)
+            }
+            disabled={qty == 0}
+          />
         </td>
       </tr>
     </>
