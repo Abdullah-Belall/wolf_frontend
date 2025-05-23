@@ -88,7 +88,7 @@ export default function OrderItemsTable({
       <div className="!absolute !left-[18px] !top-[13px] flex gap-1">
         <Button
           onClick={() => {
-            returns?.isActive ? closeReturns() : setReturns({ isActive: true, data: [] });
+            return returns?.isActive ? closeReturns() : setReturns({ isActive: true, data: [] });
           }}
           sx={{ fontFamily: "cairo" }}
           className="!bg-mdDark"

@@ -12,7 +12,6 @@ interface CusReturnedItemInterface extends ReturnedItemInterface {
 
 export default function ReturnsTableRows({
   index,
-  id,
   qty,
   created_at,
   order_item,

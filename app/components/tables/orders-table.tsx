@@ -21,7 +21,7 @@ export default function OrdersTable({
   refetch: any;
 }) {
   const { closePopup, popupState } = usePopup();
-  const { returns, setReturns, closeReturns } = useReturns();
+  const { closeReturns } = useReturns();
   const headers = [
     "العمليات",
     "التاريخ",
