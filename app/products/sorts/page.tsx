@@ -9,6 +9,7 @@ import AddOrderForm from "@/app/components/forms & alerts/add-order-form";
 import { CLIENT_COLLECTOR_REQ, GET_ALL_SORTS_REQ } from "@/app/utils/requests/client-side.requests";
 import { SortInterface } from "@/app/utils/types/interfaces";
 import { useRouter } from "next/navigation";
+import { ImCancelCircle } from "react-icons/im";
 
 export default function Sorts() {
   const router = useRouter();
@@ -54,6 +55,12 @@ export default function Sorts() {
               {popupState.makeOrderPopup.data.product_sorts.length}{" "}
               {popupState.makeOrderPopup.data.product_sorts.length > 2 ? "اصناف" : "صنف"}
             </div>
+            <p
+              onClick={() => closeOrderPopup("makeOrderPopup")}
+              className="opacity-50 hover:opacity-100 text-lg text-red-700 cursor-pointer duration-[.1s]"
+            >
+              <ImCancelCircle />
+            </p>
           </div>
         )}
       </div>
@@ -61,7 +68,7 @@ export default function Sorts() {
         <>
           <BlackLayer onClick={() => setOpenOrder(false)} />
           <PopupHolder>
-            <AddOrderForm onAdded={onAdded} />
+            <AddOrderForm onAdded={onAdded} sorts={data} />
           </PopupHolder>
         </>
       )}

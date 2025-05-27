@@ -9,9 +9,8 @@ import { FaPerson } from "react-icons/fa6";
 import { FaIdCardAlt } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import { FiCodesandbox } from "react-icons/fi";
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import Link from "next/link";
-import { MdAssignmentReturned } from "react-icons/md";
+import { RiBillLine } from "react-icons/ri";
 
 export default function SideBar() {
   const path = usePathname();
@@ -54,30 +53,6 @@ export default function SideBar() {
           <BiCategory className="opacity-50 group-hover:opacity-100" />
         </Button>
       </Link>
-      <Link className="w-full" href={"/orders"}>
-        <Button
-          className={`${
-            path === "/orders" ? "!bg-[#f1f1f1]" : ""
-          } group w-full !rounded-md !text-start !px-mainxs !flex !gap-[5px] !items-center !justify-end !text-secDark !text-[16px] !font-[500] !py-1 hover:bg-myHover!`}
-          variant="text"
-          sx={{ fontFamily: cairo.style.fontFamily }}
-        >
-          الطلبات
-          <IoIosCheckmarkCircleOutline className="opacity-50 group-hover:opacity-100" />
-        </Button>
-      </Link>
-      <Link className="w-full" href={"/returns"}>
-        <Button
-          className={`${
-            path === "/returns" ? "!bg-[#f1f1f1]" : ""
-          } group w-full !rounded-md !text-start !px-mainxs !flex !gap-[5px] !items-center !justify-end !text-secDark !text-[16px] !font-[500] !py-1 hover:bg-myHover!`}
-          variant="text"
-          sx={{ fontFamily: cairo.style.fontFamily }}
-        >
-          المرتجعات
-          <MdAssignmentReturned className="opacity-50 group-hover:opacity-100" />
-        </Button>
-      </Link>
       {dataItems}
     </aside>
   );
@@ -86,20 +61,34 @@ export default function SideBar() {
 const sameClass = "opacity-50 group-hover:opacity-100";
 const sideBarItems = [
   {
+    title: "الفواتير",
+    icon: <RiBillLine className={sameClass} />,
+    affiliateLinks: [
+      {
+        title: "فواتير التكاليف",
+        link: "/products/costs",
+      },
+      {
+        title: "فواتير المبيعات",
+        link: "/orders",
+      },
+      {
+        title: "فواتير المرتجعات",
+        link: "/returns",
+      },
+      {
+        title: "انشاء فاتورة",
+        link: "/products/sorts",
+      },
+    ],
+  },
+  {
     title: "المنتجات",
     icon: <FiCodesandbox className={sameClass} />,
     affiliateLinks: [
       {
         title: "كل المنتجات",
         link: "/products",
-      },
-      {
-        title: "التكاليف",
-        link: "/products/costs",
-      },
-      {
-        title: "الفواتير",
-        link: "/products/sorts",
       },
       {
         title: "اضافة منتج",

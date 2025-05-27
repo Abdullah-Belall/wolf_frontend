@@ -18,7 +18,7 @@ export default function OrdersTable({
   title: string;
   tableFor: "client" | "overview";
   data: OrderInterface[];
-  refetch: any;
+  refetch?: any;
 }) {
   const { closePopup, popupState } = usePopup();
   const { closeReturns } = useReturns();

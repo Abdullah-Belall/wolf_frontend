@@ -843,6 +843,26 @@ const GET_ALL_RETURNS_REQ = async () => {
     };
   }
 };
+const GET_ORDER_RETURNS_REQ = async ({ id }: { id: string }) => {
+  try {
+    const response: any = await axios.get(`${BASE_URL}/orders/returns/${id}`, {
+      headers: { Authorization: `Bearer ${getCookie("access_token")}` },
+    });
+    return response?.data.returns
+      ? { done: true, data: response?.data }
+      : { done: false, message: unCountedMessage, status: response.status };
+  } catch (error: any) {
+    let message = unCountedMessage;
+    if (error?.response?.status !== 400) {
+      message = error?.response?.data?.message;
+    }
+    return {
+      done: false,
+      message: message,
+      status: error.status,
+    };
+  }
+};
 //!===============
 const REFRESH_TOKEN_REQ = async () => {
   try {
@@ -929,4 +949,5 @@ export {
   GET_ALL_COSTS_REQ,
   MAKE_RETURNS_REQ,
   GET_ALL_RETURNS_REQ,
+  GET_ORDER_RETURNS_REQ,
 };

@@ -25,10 +25,8 @@ export default function CostsTableRows({
           {(Number(price) / Number(qty)).toLocaleString()} ج.م
         </td>
         <td className={`px-4 py-2 text-center`}>{qty}</td>
-        <td className={`cursor-pointer px-4 py-2 text-center max-w-[120px]`}>
-          {sort?.size ?? "لا يوجد"}
-        </td>
-        <td className={`cursor-pointer px-4 py-2 text-center max-w-[120px]`}>
+        <td className={`px-4 py-2 text-center max-w-[120px]`}>{sort?.size ?? "لا يوجد"}</td>
+        <td className={`px-4 py-2 text-center max-w-[120px]`}>
           {!sort?.color || sort?.color === "" ? "لا يوجد" : sort.color}
         </td>
         <td className="px-4 py-2">

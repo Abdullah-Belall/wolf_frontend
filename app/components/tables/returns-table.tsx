@@ -4,15 +4,21 @@ import MainTable from "./main-table";
 import NoData from "../common/no-data";
 import ReturnsTableRows from "../orders/return-table-rows";
 
-export default function ReturnsTable({ data }: { data: ReturnedItemInterface[] }) {
+export default function ReturnsTable({
+  data,
+  title,
+}: {
+  data: ReturnedItemInterface[];
+  title: string;
+}) {
   return (
     <>
       <MainTable
-        title="المرتجعات"
+        title={title}
         headers={[
           "التاريخ",
           "فاتورة المرتجع",
-          "سعر الوحدة وقت الشراء",
+          "سعر الوحدة",
           "الكمية المرتجعه",
           "الحجم",
           "اللون",

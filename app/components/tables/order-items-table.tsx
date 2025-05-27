@@ -12,6 +12,7 @@ import NoData from "../common/no-data";
 import { Button } from "@mui/material";
 import { usePopup } from "@/app/utils/contexts/popup-contexts";
 import { useReturns } from "@/app/utils/contexts/returns-contexts";
+import ReturnsPopUp from "../orders/returns-popup";
 
 export default function OrderItemsTable({
   title,
@@ -25,6 +26,7 @@ export default function OrderItemsTable({
   const router = useRouter();
   const [data, setData] = useState<any>([]);
   const { openPopup } = usePopup();
+  const [openReturns, setOpenReturns] = useState(false);
   const { returns, setReturns, closeReturns } = useReturns();
   const fetchData = async () => {
     const response = await CLIENT_COLLECTOR_REQ(GET_ORDER_ITEMS_REQ, { id });
@@ -64,6 +66,7 @@ export default function OrderItemsTable({
     fetchData();
     refetchOrders();
   };
+  const return_count = data?.reduce((acc: number, crr: any) => acc + crr?.return_count, 0);
   return (
     <>
       <MainTable
@@ -85,6 +88,11 @@ export default function OrderItemsTable({
         ))}
       </MainTable>
       {data.length === 0 && <NoData />}
+      {openReturns && (
+        <div className="mt-5">
+          <ReturnsPopUp index={title.replace(/\D/g, "")} id={id} />
+        </div>
+      )}
       <div className="!absolute !left-[18px] !top-[13px] flex gap-1">
         <Button
           onClick={() => {
@@ -104,6 +112,17 @@ export default function OrderItemsTable({
             variant="contained"
           >
             تأكيد
+          </Button>
+        )}
+        {return_count > 0 && (
+          <Button
+            onClick={() => setOpenReturns(!openReturns)}
+            dir="rtl"
+            sx={{ fontFamily: "cairo" }}
+            className="!bg-mdDark"
+            variant="contained"
+          >
+            {openReturns ? "اخفاء" : "عرض"} {return_count} مرتجعات
           </Button>
         )}
       </div>

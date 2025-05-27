@@ -69,6 +69,7 @@ export interface OrderInterface {
   payment: PaymentInterface;
   tax: string;
   discount: number;
+  order_items?: OrderItemInterface[];
   client: {
     id: string;
     user_name: string;
@@ -78,7 +79,8 @@ export interface OrderItemInterface {
   id: string;
   qty: number;
   unit_price: string;
-  product: ProductItemInterface;
+  product?: ProductItemInterface;
+  return?: ReturnedItemInterface[];
 }
 
 export interface SortInterface {

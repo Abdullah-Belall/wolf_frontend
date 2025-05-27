@@ -30,7 +30,7 @@ export default function UsersTableRows({
 }) {
   const { popupState, openPopup } = usePopup();
   const HandleUi = () => {
-    if (popupState.makeOrderPopup.data.client === id) {
+    if (popupState.makeOrderPopup.data.client?.id === id) {
       return (
         <Radio
           checked
@@ -44,7 +44,7 @@ export default function UsersTableRows({
     } else {
       return (
         <Radio
-          onChange={() => openPopup("makeOrderPopup", { client: id })}
+          onChange={() => openPopup("makeOrderPopup", { client: { id, name } })}
           sx={{
             "&.Mui-checked": {
               color: "var(--mdDark)",

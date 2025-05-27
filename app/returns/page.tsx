@@ -25,7 +25,7 @@ export default function Sorts() {
   return (
     <>
       <div className="px-mainxs relative">
-        <ReturnsTable data={data} />
+        <ReturnsTable title={"فواتير المرتجعات"} data={data} />
       </div>
     </>
   );

@@ -8,7 +8,7 @@ export default function CostsTable({ data }: { data: CostsInterface[] }) {
   return (
     <>
       <MainTable
-        title="البضاعة المدخلة"
+        title="فواتير التكاليف"
         headers={[
           "التاريخ",
           "الاجمالي",

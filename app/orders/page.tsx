@@ -21,7 +21,7 @@ export default function Orders() {
   }, []);
   return (
     <div className="px-mainxs">
-      <OrdersTable data={data} tableFor="overview" title="كل الطلبات" refetch={fetchData} />
+      <OrdersTable data={data} tableFor="overview" title="فواتير المبيعات" refetch={fetchData} />
     </div>
   );
 }
