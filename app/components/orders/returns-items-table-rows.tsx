@@ -1,7 +1,6 @@
 "use client";
 import { formatDate } from "@/app/utils/base";
 import { ReturnsItemsInterface } from "@/app/utils/types/interfaces";
-import { IoIosPrint } from "react-icons/io";
 
 interface CusReturnsItemsInterface extends ReturnsItemsInterface {
   order?: {
@@ -16,10 +15,8 @@ interface CusReturnsItemsInterface extends ReturnsItemsInterface {
 
 export default function ReturnsItemsTableRows({
   index,
-  id,
   qty,
   unit_price,
-  reason,
   created_at,
   order_item,
   order,

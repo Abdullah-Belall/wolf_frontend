@@ -228,13 +228,6 @@ interface Order {
   short_id: string;
 }
 
-interface OrderItem {
-  id: string;
-  qty: number;
-  unit_price: string;
-  order: Order;
-  sort: Sort;
-}
 export interface ReturnDataInterface {
   id: string;
   short_id: string;

@@ -1,6 +1,5 @@
 "use client";
 
-import { formatDate } from "@/app/utils/base";
 import { SortInterface } from "@/app/utils/types/interfaces";
 
 interface CusSortInterface extends SortInterface {
@@ -15,7 +14,6 @@ export default function OrderPrintRows({
   size,
   qty,
   price,
-  created_at,
 }: CusSortInterface) {
   return (
     <>

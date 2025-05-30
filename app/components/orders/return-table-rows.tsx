@@ -2,7 +2,6 @@
 import { formatDate } from "@/app/utils/base";
 import { usePopup } from "@/app/utils/contexts/popup-contexts";
 import { ReturnDataInterface } from "@/app/utils/types/interfaces";
-import { IoIosPrint } from "react-icons/io";
 
 export default function ReturnsTableRows({
   id,

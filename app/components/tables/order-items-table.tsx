@@ -19,7 +19,6 @@ import { getSlug, methodsArray, paidStatusArray } from "@/app/utils/base";
 export default function OrderItemsTable({
   title,
   id,
-  refetchOrders,
 }: {
   title: string;
   id: string;
