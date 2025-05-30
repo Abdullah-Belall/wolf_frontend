@@ -203,31 +203,6 @@ export interface SidebarItemInterface {
   affiliateLinks: AffiliateLink[];
 }
 
-interface Product {
-  id: string;
-  name: string;
-}
-
-interface Sort {
-  id: string;
-  name: string;
-  color: string;
-  size: string;
-  qty: number;
-  product: Product;
-}
-
-interface Client {
-  id: string;
-  user_name: string;
-}
-
-interface Order {
-  id: string;
-  client: Client;
-  short_id: string;
-}
-
 export interface ReturnDataInterface {
   id: string;
   short_id: string;
