@@ -9,6 +9,8 @@ import CustomSnackbar from "./components/common/custom-snakebar";
 import { UserProvider } from "./utils/contexts/UserContext";
 import { useEffect } from "react";
 import { ReturnsProvider } from "./utils/contexts/returns-contexts";
+import { BillesProvider } from "./utils/contexts/bills-contexts";
+import ReturnsItemsPopupCus from "./components/popup-return-layout/return-cus-popup";
 
 export default function RootLayout({
   children,
@@ -29,6 +31,7 @@ export default function RootLayout({
       document.head.removeChild(link);
     };
   }, []);
+
   return (
     <html lang="en">
       <body
@@ -36,16 +39,21 @@ export default function RootLayout({
           !isLoginRoute ? "mr-[240px] mt-[80px]" : ""
         }`}
       >
-        <PopupProvider>
-          <UserProvider>
-            <ReturnsProvider>
-              <CustomSnackbar />
-              {!isLoginRoute && <SideBar />}
-              {!isLoginRoute && <Header />}
-              {children}
-            </ReturnsProvider>
-          </UserProvider>
-        </PopupProvider>
+        <>
+          <PopupProvider>
+            <UserProvider>
+              <ReturnsProvider>
+                <BillesProvider>
+                  <CustomSnackbar />
+                  {!isLoginRoute && <SideBar />}
+                  {!isLoginRoute && <Header />}
+                  {children}
+                  <ReturnsItemsPopupCus />
+                </BillesProvider>
+              </ReturnsProvider>
+            </UserProvider>
+          </PopupProvider>
+        </>
       </body>
     </html>
   );

@@ -64,6 +64,7 @@ export interface PaymentInterface {
 
 export interface OrderInterface {
   id: string;
+  short_id: string;
   total_price: string;
   created_at: Date;
   payment: PaymentInterface;
@@ -80,7 +81,7 @@ export interface OrderItemInterface {
   qty: number;
   unit_price: string;
   product?: ProductItemInterface;
-  return?: ReturnedItemInterface[];
+  return?: ReturnDataInterface[];
 }
 
 export interface SortInterface {
@@ -184,6 +185,7 @@ export interface DropDownsInterface {
 }
 export interface CostsInterface {
   id: string;
+  short_id: string;
   sort: SortInterface;
   qty: number;
   price: number;
@@ -223,6 +225,7 @@ interface Client {
 interface Order {
   id: string;
   client: Client;
+  short_id: string;
 }
 
 interface OrderItem {
@@ -232,12 +235,46 @@ interface OrderItem {
   order: Order;
   sort: Sort;
 }
+export interface ReturnDataInterface {
+  id: string;
+  short_id: string;
+  totalPrice?: number;
+  order?: {
+    id: string;
+    tax: string;
+    short_id: string;
+    client: {
+      id: string;
+      user_name: string;
+    };
+  };
+  returns_items?: ReturnsItemsInterface[];
+  returns_items_count: number;
+  created_at: Date;
+  updated_at: Date;
+}
 
-export interface ReturnedItemInterface {
+export interface ReturnsItemsInterface {
+  index: number;
   id: string;
   qty: number;
+  unit_price: string | number;
   reason: string | null;
   created_at: Date;
   updated_at: Date;
-  order_item: OrderItem;
+  order_item: {
+    id: string;
+    qty: number;
+    sort: {
+      id: string;
+      name: string;
+      color: string;
+      size: string;
+      product: {
+        id: string;
+        name: string;
+        material: string;
+      };
+    };
+  };
 }

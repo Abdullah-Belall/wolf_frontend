@@ -29,11 +29,6 @@ export default function Sorts() {
   useEffect(() => {
     fetchData();
   }, []);
-  const onAdded = () => {
-    setOpenOrder(false);
-    closeOrderPopup("makeOrderPopup");
-    fetchData();
-  };
   return (
     <>
       <div className="px-mainxs relative">
@@ -68,7 +63,7 @@ export default function Sorts() {
         <>
           <BlackLayer onClick={() => setOpenOrder(false)} />
           <PopupHolder>
-            <AddOrderForm onAdded={onAdded} sorts={data} />
+            <AddOrderForm />
           </PopupHolder>
         </>
       )}

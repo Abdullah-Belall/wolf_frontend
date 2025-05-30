@@ -4,13 +4,14 @@ import NoData from "../common/no-data";
 import OrderPrintRows from "../orders/order-print-rows";
 
 export default function OrderBillsTable({ data }: { data: any }) {
+  console.log(data);
   return (
     <>
       <MainTable
         title={""}
         headers={[
-          "التاريخ",
-          "السعر",
+          "السعر الاجمالي",
+          "سعر الوحدة",
           "الكمية",
           "الخامة",
           "المقاس",
@@ -22,7 +23,7 @@ export default function OrderBillsTable({ data }: { data: any }) {
       >
         {data.map((row: any, index: number) => (
           <OrderPrintRows
-            key={row?.id}
+            key={index}
             index={index + 1}
             id={row?.id}
             name={row?.name}

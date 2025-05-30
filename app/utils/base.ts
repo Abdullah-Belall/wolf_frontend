@@ -13,6 +13,9 @@ export const formatDate = (inputDate: Date) => {
 
   return `${hours}:${minutes} ${day}-${month}-${year}`;
 };
+export const getSlug = (arr: any, value: string) => {
+  return arr.find((e: any) => e.value === value)?.label;
+};
 export const sameTextField = {
   "& .MuiFilledInput-root": {
     fontFamily: "cairo",

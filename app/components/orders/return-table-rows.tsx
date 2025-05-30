@@ -1,76 +1,50 @@
 "use client";
-
 import { formatDate } from "@/app/utils/base";
 import { usePopup } from "@/app/utils/contexts/popup-contexts";
-import { ReturnedItemInterface } from "@/app/utils/types/interfaces";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-
-interface CusReturnedItemInterface extends ReturnedItemInterface {
-  index?: number;
-}
+import { ReturnDataInterface } from "@/app/utils/types/interfaces";
+import { IoIosPrint } from "react-icons/io";
 
 export default function ReturnsTableRows({
-  index,
-  qty,
+  id,
+  returns_items_count,
+  short_id,
+  totalPrice,
+  order,
   created_at,
-  order_item,
-}: CusReturnedItemInterface) {
-  const router = useRouter();
+}: ReturnDataInterface) {
   const { openPopup } = usePopup();
-
-  const price = Number(order_item.unit_price) * qty;
-  const unitPrice = Number(order_item.unit_price);
-  const sort = order_item.sort;
-
   return (
     <tr>
+      {/* <td className="px-4 py-2 text-center">
+        <div dir="rtl" className="w-fit ml-auto flex items-center gap-2 mx-auto">
+          <p className="w-fit text-xl hover:text-myDark cursor-pointer text-anotherDark">
+            <IoIosPrint />
+          </p>
+        </div>
+      </td> */}
       <td className="px-4 py-2 text-center">{formatDate(created_at)}</td>
-      <td className="px-4 py-2 text-center">{price.toLocaleString()} ج.م</td>
-      <td className="px-4 py-2 text-center">{unitPrice.toLocaleString()} ج.م</td>
-      <td className="px-4 py-2 text-center">{qty}</td>
-
-      <td className="px-4 py-2 text-center max-w-[120px]">{sort?.size ?? "لا يوجد"}</td>
-      <td className="px-4 py-2 text-center max-w-[120px]">
-        {!sort?.color || sort?.color === "" ? "لا يوجد" : sort.color}
-      </td>
-      <td className="px-4 py-2">
-        <p
-          onClick={() => {
-            router.push(`/products`);
-            openPopup("sortsPopup", {
-              id: sort?.product?.id,
-              name: sort?.product?.name,
-            });
-          }}
-          className="w-fit mx-auto hover:underline cursor-pointer"
-        >
-          {sort?.name ?? "لا يوجد"}
-        </p>
-      </td>
-      <td className="px-4 py-2">
-        <p
-          onClick={() => {
-            router.push(`/products`);
-            openPopup("sortsPopup", {
-              id: sort?.product?.id,
-              name: sort?.product?.name,
-            });
-          }}
-          className="w-fit mx-auto hover:underline cursor-pointer"
-        >
-          {sort?.product?.name}
-        </p>
-      </td>
       <td className="px-4 py-2 text-center">
-        <Link
-          href={`/clients/${order_item.order.client.id}`}
-          className={`w-fit mx-auto hover:underline cursor-pointer`}
-        >
-          {order_item?.order?.client?.user_name}
-        </Link>
+        -
+        {Number(
+          (
+            Number(totalPrice) *
+            (order?.tax && order?.tax !== "" && order?.tax !== "0"
+              ? Number(order?.tax) / 100 + 1
+              : 1)
+          ).toFixed(2)
+        ).toLocaleString()}
+        ج.م
       </td>
-      <td className="px-4 py-2 text-center">{index}</td>
+      <td className="px-4 py-2 text-center">{returns_items_count}</td>
+      <td className="px-4 py-2 text-center">{order?.short_id?.slice(4)}</td>
+      <td className="px-4 py-2 text-center">{order?.client?.user_name}</td>
+      <td
+        onClick={() => openPopup("returnsItemsPopup", { returnId: id })}
+        className="px-4 py-2 text-center hover:underline cursor-pointer"
+      >
+        عرض الكل
+      </td>
+      <td className="px-4 py-2 text-center">{short_id?.slice(4)}</td>
     </tr>
   );
 }

@@ -11,15 +11,12 @@ import {
   CLIENT_COLLECTOR_REQ,
   GET_ALL_CLIENTS_REQ,
 } from "@/app/utils/requests/client-side.requests";
-import { methodsArray, paidStatusArray, sameTextField, taxArray } from "@/app/utils/base";
+import { getSlug, methodsArray, paidStatusArray, sameTextField, taxArray } from "@/app/utils/base";
+import { useRouter } from "next/navigation";
+import { useBills } from "@/app/utils/contexts/bills-contexts";
 
-export default function AddOrderForm({ onAdded, sorts }: any) {
-  const getProductInfo = (id: string) => {
-    console.log(id);
-    console.log(sorts);
-    return sorts.find((e: any) => e.id === id);
-  };
-
+export default function AddOrderForm() {
+  const router = useRouter();
   const [data, setData] = useState([]);
   const { openPopup, popupState } = usePopup();
   const openSnakeBar = (message: string) => {
@@ -45,6 +42,7 @@ export default function AddOrderForm({ onAdded, sorts }: any) {
     paid_status: false,
     tax: false,
   });
+  const { setBills } = useBills();
   const handleOpenDropDown = (key: keyof typeof openDropDown, value: boolean) => {
     setOpenDropDown({ ...openDropDown, [key]: value });
   };
@@ -64,9 +62,7 @@ export default function AddOrderForm({ onAdded, sorts }: any) {
       </li>
     ));
   };
-  const getSlug = (arr: any, value: string) => {
-    return arr.find((e: any) => e.value === value)?.label;
-  };
+
   //* =================
   const fetchData = async () => {
     const response = await CLIENT_COLLECTOR_REQ(GET_ALL_CLIENTS_REQ);
@@ -138,105 +134,42 @@ export default function AddOrderForm({ onAdded, sorts }: any) {
     console.log(response);
     if (response.done) {
       openPopup("snakeBarPopup", { message: "تم انشاء الطلب بنجاح.", type: "success" });
-      onAdded();
-      const clientName = popupState.makeOrderPopup.data.client?.name ?? "غير معروف";
-      const productSorts = popupState.makeOrderPopup.data.product_sorts
-        .map((item: any, index: number) => {
-          const sort = getProductInfo(item.product_id);
-          return `<tr>
-            <td style="border: 1px solid #ddd; padding: 8px;">${index + 1}</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">${
-              sort?.product?.name && sort?.product?.name !== "" ? sort?.product?.name : "لا يوجد"
-            }</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">${
-              sort?.name && sort?.name !== "" ? sort?.name : "لا يوجد"
-            }</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">${
-              sort?.color && sort?.color !== "" ? sort?.color : "لا يوجد"
-            }</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">${
-              sort?.size && sort?.size !== "" ? sort?.size : "لا يوجد"
-            }</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">${sort?.product?.material}</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">${sort?.qty}</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">${Number(
-              sort?.price
-            ).toLocaleString()}</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">${(
-              sort?.qty * Number(getProductInfo(item.product_id)?.price)
-            ).toLocaleString()}</td>
-          </tr>`;
-        })
-        .join("");
-
-      const printContent = `
-      <html dir="rtl">
-        <head>
-          <title>فاتورة</title>
-          <style>
-            body { font-family: 'Cairo', sans-serif; margin: 20px; }
-            h2 { text-align: center; }
-            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-            th, td { border: 1px solid #ddd; padding: 8px; text-align: right; }
-            th { background-color: #f2f2f2; }
-            .summary { margin-top: 20px; }
-            .summary p { margin: 5px 0; }
-            .print-button { background-color: #1976d2; }
-              .print-button:hover { background-color: #1565c0; }
-              .close-button { background-color: #d32f2f; }
-              .close-button:hover { background-color: #b71c1c; }
-          </style>
-        </head>
-        <body>
-          <h2>تفاصيل الطلب</h2>
-          <p><strong>اسم العميل:</strong> ${clientName}</p>
-          <table>
-            <thead>
-              <tr>
-                <th>*</th>
-                <th>اسم المنتج</th>
-                <th>اسم الصنف</th>
-                <th>لون الصنف</th>
-                <th>مقاس الصنف</th>
-                <th>الخامة</th>
-                <th>الكمية</th>
-                <th>سعر الوحدة</th>
-                <th>الإجمالي</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${productSorts}
-            </tbody>
-          </table>
-          <div class="summary">
-            <p><strong>وسيلة الدفع:</strong> ${getSlug(methodsArray, formData.payment_method)}</p>
-            <p><strong>حالة الدفع:</strong> ${getSlug(paidStatusArray, formData.paid_status)}</p>
-            <p><strong>الضريبة:</strong> ${
-              formData.tax ? getSlug(taxArray, formData.tax) : "لا يوجد"
-            }</p>
-            <p><strong>الخصم:</strong> ${
-              formData.discount ? Number(formData.discount).toLocaleString() : "لا يوجد"
-            }</p>
-            <p><strong>إجمالي السعر:</strong> ${Number(totalPrice.toFixed(2)).toLocaleString()}</p>
-            <p><strong>إجمالي السعر بعد الضريبة والخصم:</strong> ${Number(
-              totalPriceAfter.toFixed(2)
-            ).toLocaleString()}</p>
-          </div>
-          <div class="button-container">
-              <button class="print-button" onclick="window.print()">طباعة</button>
-              <button class="close-button" onclick="window.close()">إغلاق</button>
-            </div>
-        </body>
-      </html>
-    `;
-
-      const printWindow = window.open("about:blank", "_new");
-      if (printWindow) {
-        printWindow.document.write(printContent);
-        printWindow.document.close();
-      } else {
-        openSnakeBar("فشل فتح نافذة الطباعة. تأكد من السماح بفتح النوافذ المنبثقة.");
-      }
+      const data = response.data;
+      const sortsData = data?.order_items?.map((item: any, index: number) => ({
+        color: item?.sort?.color,
+        index: index + 1,
+        id: item?.sort?.id,
+        name: item?.sort?.name,
+        size: item?.sort?.size,
+        qty: item?.qty,
+        price: item?.unit_price,
+        product: {
+          name: item?.sort?.product?.name,
+          id: item?.sort?.product?.id,
+          material: item?.sort?.product?.material,
+        },
+      }));
+      setBills({
+        type: "order",
+        bill_id: data?.short_id,
+        client: {
+          name: data?.client.user_name,
+          id: data?.client?.id,
+        },
+        data: sortsData,
+        totals: {
+          totalPrice: (
+            data?.total_price * (data?.tax && data?.tax !== "" ? Number(data?.tax) / 100 + 1 : 1) -
+            (data?.discount === "" ? 0 : Number(data?.discount))
+          ).toString(),
+          tax: data?.tax + "%",
+          discount: data?.discount,
+          paid_status: getSlug(paidStatusArray, data?.payment.status),
+          payment_method: getSlug(methodsArray, data?.payment?.payment_method),
+          created_at: data?.created_at,
+        },
+      });
+      router.push("/bill");
     } else {
       openSnakeBar(response.message);
     }
@@ -303,10 +236,9 @@ export default function AddOrderForm({ onAdded, sorts }: any) {
           dir="rtl"
           label="الخصم بالجنية"
           variant="filled"
-          type="number"
           sx={sameTextField}
           value={formData.discount}
-          onChange={(e) => handleFormData("discount", e.target.value)}
+          onChange={(e) => handleFormData("discount", e.target.value.replace(/[^0-9.]/g, ""))}
           className="w-full"
         />
         <SelectList

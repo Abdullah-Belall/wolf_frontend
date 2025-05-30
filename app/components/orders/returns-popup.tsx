@@ -7,15 +7,17 @@ import {
 } from "@/app/utils/requests/client-side.requests";
 
 export default function ReturnsPopUp({ index, id }: { index: number | string; id: string }) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>();
   const fetchData = async () => {
     const response = await CLIENT_COLLECTOR_REQ(GET_ORDER_RETURNS_REQ, { id });
+    console.log(response);
     if (response.done) {
-      setData(response.data.returns);
+      setData(response.data);
     }
   };
   useEffect(() => {
     fetchData();
   }, []);
+  console.log(data);
   return <ReturnsTable title={`مرتجعات الطلب رقم ${index}`} data={data} />;
 }

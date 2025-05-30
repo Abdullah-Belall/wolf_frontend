@@ -9,12 +9,12 @@ import ReturnsTable from "../components/tables/returns-table";
 
 export default function Sorts() {
   const router = useRouter();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>();
   const fetchData = async () => {
     const response = await CLIENT_COLLECTOR_REQ(GET_ALL_RETURNS_REQ);
     console.log(response);
     if (response.done) {
-      setData(response.data.returns);
+      setData(response.data);
     } else {
       router.replace("/log-in");
     }

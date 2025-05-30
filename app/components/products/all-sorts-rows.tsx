@@ -60,12 +60,13 @@ export default function AllSortsTableRows({
             id="Glu"
             dir="rtl"
             label="الكمية"
-            type="number"
             variant="filled"
             sx={sameTextField}
             value={inputValue?.qty ?? ""}
             onChange={(e) =>
-              +e.target.value > +qty ? handleInputs(qty.toString()) : handleInputs(e.target.value)
+              +e.target.value > +qty
+                ? handleInputs(qty.toString())
+                : handleInputs(e.target.value.replace(/[^0-9.]/g, ""))
             }
             disabled={qty == 0}
           />

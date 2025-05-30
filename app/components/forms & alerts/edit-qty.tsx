@@ -68,22 +68,20 @@ export default function EditQtyPopup({ OnConfirm }: { OnConfirm: any; title: str
             dir="rtl"
             label="الكمية الجديدة"
             variant="filled"
-            type="number"
             className="w-full"
             sx={sameTextField}
             value={data.newQty ?? ""}
-            onChange={(e) => handleData("newQty", e.target.value)}
+            onChange={(e) => handleData("newQty", e.target.value.replace(/[^0-9.]/g, ""))}
           />
           <TextField
             id="Glu"
             dir="rtl"
             label="التكلفة للوحدة"
             variant="filled"
-            type="number"
             className="w-full"
             sx={sameTextField}
             value={data.costPrice ?? ""}
-            onChange={(e) => handleData("costPrice", e.target.value)}
+            onChange={(e) => handleData("costPrice", e.target.value.replace(/[^0-9.]/g, ""))}
           />
         </div>
 

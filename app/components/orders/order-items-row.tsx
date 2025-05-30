@@ -38,10 +38,10 @@ export default function OrderItemsTableRow({
   useEffect(() => {
     if (returns?.isActive) {
       if (val !== "") {
-        const filterd = (returns?.data?.filter((e) => e.id !== id) as ReturnsDataType[]) || [];
-        setReturns({ isActive: true, data: [...filterd, { id, qty: Number(val) }] });
+        const filterd = (returns?.data?.filter((e) => e.item_id !== id) as ReturnsDataType[]) || [];
+        setReturns({ isActive: true, data: [...filterd, { item_id: id, qty: Number(val) }] });
       } else {
-        const filterd = (returns?.data?.filter((e) => e.id !== id) as ReturnsDataType[]) || [];
+        const filterd = (returns?.data?.filter((e) => e.item_id !== id) as ReturnsDataType[]) || [];
         setReturns({ isActive: true, data: filterd });
       }
     }

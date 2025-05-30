@@ -4,25 +4,18 @@ import { usePopup } from "@/app/utils/contexts/popup-contexts";
 import { CostsInterface } from "@/app/utils/types/interfaces";
 import { useRouter } from "next/navigation";
 
-interface CusProductInterface extends CostsInterface {
-  index?: number;
-}
-export default function CostsTableRows({
-  index,
-  sort,
-  qty,
-  price,
-  created_at,
-}: CusProductInterface) {
+export default function CostsTableRows({ short_id, sort, qty, price, created_at }: CostsInterface) {
   const router = useRouter();
   const { openPopup } = usePopup();
   return (
     <>
       <tr>
         <td className="px-4 py-2 text-center">{formatDate(created_at)}</td>
-        <td className="px-4 py-2 text-center">{Number(price).toLocaleString()} ج.م</td>
         <td className="px-4 py-2 text-center">
-          {(Number(price) / Number(qty)).toLocaleString()} ج.م
+          {qty > 0 && "-"} {Number(price).toLocaleString()} ج.م
+        </td>
+        <td className="px-4 py-2 text-center">
+          {Math.abs(Number(price) / Number(qty)).toLocaleString()} ج.م
         </td>
         <td className={`px-4 py-2 text-center`}>{qty}</td>
         <td className={`px-4 py-2 text-center max-w-[120px]`}>{sort?.size ?? "لا يوجد"}</td>
@@ -51,7 +44,7 @@ export default function CostsTableRows({
             {sort?.product?.name}
           </p>
         </td>
-        <td className="px-4 py-2 text-center">{index}</td>
+        <td className="px-4 py-2 text-center">{short_id.slice(4)}</td>
       </tr>
     </>
   );

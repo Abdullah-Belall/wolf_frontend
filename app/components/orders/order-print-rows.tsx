@@ -20,7 +20,7 @@ export default function OrderPrintRows({
   return (
     <>
       <tr>
-        <td className="px-4 py-2 text-center">{formatDate(created_at)}</td>
+        <td className="px-4 py-2 text-center">{(+price * qty).toLocaleString()} ج.م</td>
         <td className="px-4 py-2 text-center">{price} ج.م</td>
         <td className="px-4 py-2 text-center">{qty}</td>
         <td className="px-4 py-2 text-center">{product?.material}</td>

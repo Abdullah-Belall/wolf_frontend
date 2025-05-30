@@ -25,7 +25,7 @@ export default function CostsTable({ data }: { data: CostsInterface[] }) {
           <CostsTableRows
             key={index}
             id={row.id}
-            index={index + 1}
+            short_id={row.short_id}
             sort={row.sort}
             qty={row.qty}
             price={row.price}

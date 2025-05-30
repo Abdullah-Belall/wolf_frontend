@@ -55,6 +55,7 @@ export default function OrdersTable({
             tableFor={tableFor}
             tax={row.tax}
             discount={row.discount}
+            short_id={row.short_id}
           />
         ))}
       </MainTable>

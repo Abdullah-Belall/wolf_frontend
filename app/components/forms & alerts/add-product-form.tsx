@@ -77,7 +77,7 @@ export default function AddProductForm({
       return false;
     }
     if (!isForEdit) {
-      if (!category) {
+      if (!category || category === "الفئة" || category === "") {
         openSnakeBar("يجب تحديد فئة للمتابعة.");
         return false;
       }

@@ -103,12 +103,11 @@ export default function AddPhoneForm({
           id="Glu"
           dir="rtl"
           label="الرقم"
-          type="number"
           variant="filled"
           className="w-full"
           sx={sameTextField}
           value={data?.phone ?? ""}
-          onChange={(e) => handleData("phone", e.target.value)}
+          onChange={(e) => handleData("phone", e.target.value.replace(/[^0-9.]/g, ""))}
         />
         <TextField
           id="Glu"

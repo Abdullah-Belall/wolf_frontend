@@ -48,11 +48,8 @@ export default function AddSortForm({
   const openSnakeBar = (message: string) => {
     openPopup("snakeBarPopup", { message });
   };
-  const handleData = (
-    key: keyof typeof data,
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | string
-  ) => {
-    setData({ ...data, [key]: typeof e === "string" ? e : e.target.value });
+  const handleData = (key: keyof typeof data, value: string) => {
+    setData({ ...data, [key]: value });
   };
   const vaildation = () => {
     const { name, size, qty, cost, price } = data;
@@ -132,7 +129,7 @@ export default function AddSortForm({
           sx={sameTextField}
           className="w-full"
           value={data.name ?? ""}
-          onChange={(e) => handleData("name", e)}
+          onChange={(e) => handleData("name", e.target.value)}
         />
         <div className="flex justify-between items-center gap-mainxs mb-0">
           <TextField
@@ -143,7 +140,7 @@ export default function AddSortForm({
             variant="filled"
             sx={sameTextField}
             value={data.color ?? ""}
-            onChange={(e) => handleData("color", e)}
+            onChange={(e) => handleData("color", e.target.value)}
           />
           <TextField
             id="Glu"
@@ -153,7 +150,7 @@ export default function AddSortForm({
             sx={sameTextField}
             className="w-full"
             value={data.size ?? ""}
-            onChange={(e) => handleData("size", e)}
+            onChange={(e) => handleData("size", e.target.value)}
           />
         </div>
         <div className="flex justify-center items-center gap-mainxs mb-0">
@@ -161,12 +158,11 @@ export default function AddSortForm({
             id="Glu"
             dir="rtl"
             label="سعر البيع للوحدة"
-            type="number"
             className="w-full"
             variant="filled"
             sx={sameTextField}
             value={data.price ?? ""}
-            onChange={(e) => handleData("price", e)}
+            onChange={(e) => handleData("price", e.target.value.replace(/[^0-9.]/g, ""))}
           />
           {!isForEdit && (
             <>
@@ -174,23 +170,21 @@ export default function AddSortForm({
                 id="Glu"
                 dir="rtl"
                 label="التكلفة للوحدة"
-                type="number"
                 variant="filled"
                 sx={sameTextField}
                 className="w-full"
                 value={data.cost ?? ""}
-                onChange={(e) => handleData("cost", e)}
+                onChange={(e) => handleData("cost", e.target.value.replace(/[^0-9.]/g, ""))}
               />
               <TextField
                 id="Glu"
                 dir="rtl"
                 label="الكمية"
-                type="number"
                 variant="filled"
                 sx={sameTextField}
                 className="w-full"
                 value={data.qty ?? ""}
-                onChange={(e) => handleData("qty", e)}
+                onChange={(e) => handleData("qty", e.target.value.replace(/[^0-9.]/g, ""))}
               />
             </>
           )}
@@ -203,7 +197,7 @@ export default function AddSortForm({
           className="w-full"
           sx={sameTextField}
           value={data.note ?? ""}
-          onChange={(e) => handleData("note", e)}
+          onChange={(e) => handleData("note", e.target.value)}
         />
         <Button
           onClick={handleDone}

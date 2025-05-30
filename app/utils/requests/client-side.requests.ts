@@ -229,7 +229,7 @@ const ADD_ORDER_REQ = async (data: AddOrderInterface) => {
     });
     console.log(response);
     if (response?.data?.done) {
-      return { done: true };
+      return { done: true, data: response.data.order };
     } else {
       return { done: false, message: unCountedMessage, status: response.status };
     }
@@ -800,13 +800,24 @@ const GET_ALL_COSTS_REQ = async () => {
     };
   }
 };
-const MAKE_RETURNS_REQ = async ({ id, data }: { id: string; data: { qty: number } }) => {
+const MAKE_RETURNS_REQ = async ({
+  id,
+  data,
+}: {
+  id: string;
+  data: { returns: { item_id: string; qty: number }[] };
+}) => {
+  const stringfyArr = JSON.stringify(data.returns);
   try {
-    const response: any = await axios.post(`${BASE_URL}/orders/returns/${id}`, data, {
-      headers: { Authorization: `Bearer ${getCookie("access_token")}` },
-    });
+    const response: any = await axios.post(
+      `${BASE_URL}/orders/returns/${id}`,
+      { returns: stringfyArr },
+      {
+        headers: { Authorization: `Bearer ${getCookie("access_token")}` },
+      }
+    );
     if (response?.data?.done) {
-      return { done: true };
+      return { done: true, data: response?.data?.order };
     } else {
       return { done: false, message: unCountedMessage, status: response.status };
     }
@@ -828,7 +839,7 @@ const GET_ALL_RETURNS_REQ = async () => {
     const response: any = await axios.get(`${BASE_URL}/orders/returns`, {
       headers: { Authorization: `Bearer ${getCookie("access_token")}` },
     });
-    return response?.data.returns
+    return response?.data.returns_items
       ? { done: true, data: response?.data }
       : { done: false, message: unCountedMessage, status: response.status };
   } catch (error: any) {
@@ -848,7 +859,27 @@ const GET_ORDER_RETURNS_REQ = async ({ id }: { id: string }) => {
     const response: any = await axios.get(`${BASE_URL}/orders/returns/${id}`, {
       headers: { Authorization: `Bearer ${getCookie("access_token")}` },
     });
-    return response?.data.returns
+    return response?.data.returns_items
+      ? { done: true, data: response?.data }
+      : { done: false, message: unCountedMessage, status: response.status };
+  } catch (error: any) {
+    let message = unCountedMessage;
+    if (error?.response?.status !== 400) {
+      message = error?.response?.data?.message;
+    }
+    return {
+      done: false,
+      message: message,
+      status: error.status,
+    };
+  }
+};
+const GET_ONE_RETURNS_REQ = async ({ id }: { id: string }) => {
+  try {
+    const response: any = await axios.get(`${BASE_URL}/orders/returns/returns-items/${id}`, {
+      headers: { Authorization: `Bearer ${getCookie("access_token")}` },
+    });
+    return response?.data.id
       ? { done: true, data: response?.data }
       : { done: false, message: unCountedMessage, status: response.status };
   } catch (error: any) {
@@ -950,4 +981,5 @@ export {
   MAKE_RETURNS_REQ,
   GET_ALL_RETURNS_REQ,
   GET_ORDER_RETURNS_REQ,
+  GET_ONE_RETURNS_REQ,
 };
