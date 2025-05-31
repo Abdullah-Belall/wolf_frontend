@@ -894,6 +894,11 @@ const GET_ONE_RETURNS_REQ = async ({ id }: { id: string }) => {
     };
   }
 };
+const INITIAL_DATA_REQ = async () => {
+  const response: any = await axios.get(`${BASE_URL}/products/initialData`, {
+    headers: { Authorization: `Bearer ${getCookie("access_token")}` },
+  });
+};
 //!===============
 const REFRESH_TOKEN_REQ = async () => {
   try {
@@ -982,4 +987,5 @@ export {
   GET_ALL_RETURNS_REQ,
   GET_ORDER_RETURNS_REQ,
   GET_ONE_RETURNS_REQ,
+  INITIAL_DATA_REQ,
 };
