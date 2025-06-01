@@ -903,7 +903,7 @@ const INITIAL_DATA_REQ = async () => {
 const SEARCH_REQ = async ({ searchin, searchwith }: { searchin: string; searchwith: string }) => {
   try {
     const response: any = await axios.get(
-      `${BASE_URL}/search?searchin=${searchin}&searchwith=${searchwith}`,
+      `${BASE_URL}/common/search?searchin=${searchin}&searchwith=${searchwith}`,
       {
         headers: { Authorization: `Bearer ${getCookie("access_token")}` },
       }
