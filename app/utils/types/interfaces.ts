@@ -246,3 +246,14 @@ export interface ReturnsItemsInterface {
     };
   };
 }
+
+export interface CalcsInterface {
+  totalCostsPrice: number;
+  totalSortsPrices: number;
+  totalReturnsPrices: number;
+  countTotalReturnsPrices: number;
+  paidOrders: number;
+  countPaidOrders: number;
+  notPaidOrders: number;
+  countNotPaidOrders: number;
+}

@@ -1,10 +1,14 @@
+import SearchInput from "../filtaraion/search-input/search-input";
+
 export default function MainTable({
   title,
   children,
   headers,
+  filter,
 }: {
   title: string;
   headers: string[];
+  filter?: [boolean, string];
   children: React.ReactNode;
 }) {
   const header = headers.map((e, i) => (
@@ -15,7 +19,15 @@ export default function MainTable({
 
   return (
     <div>
-      <h1 className="mb-[15px] ml-auto w-fit text-lg font-semibold text-myDark">{title}</h1>
+      <h1 className="mb-2 w-fit text-lg font-semibold text-myDark text-nowrap ml-auto">{title}</h1>
+      <div dir="rtl" className="flex items-center justify-between mb-2">
+        {filter?.[0] && (
+          <>
+            <SearchInput searchin={filter[1]} />
+            {/* <AppliedFilters /> */}
+          </>
+        )}
+      </div>
       <div className="overflow-x-auto">
         <div className="custom-scrollbar max-h-[calc(100dvh-140px)] overflow-y-auto rounded-xl border border-mdLight">
           <table className="w-full text-right border-collapse bg-myHover text-secDark">

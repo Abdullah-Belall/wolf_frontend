@@ -8,6 +8,7 @@ export default function AllSortsTable({ data }: { data: SortInterface[] }) {
   return (
     <>
       <MainTable
+        filter={[true, "sorts"]}
         title={`انشاء فاتورة`}
         headers={[
           "التاريخ",

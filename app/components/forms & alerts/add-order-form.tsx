@@ -18,7 +18,7 @@ import { useBills } from "@/app/utils/contexts/bills-contexts";
 export default function AddOrderForm() {
   const router = useRouter();
   const [data, setData] = useState([]);
-  const { openPopup, popupState } = usePopup();
+  const { openPopup, popupState, closeOrderPopup } = usePopup();
   const openSnakeBar = (message: string) => {
     openPopup("snakeBarPopup", { message });
   };
@@ -169,6 +169,7 @@ export default function AddOrderForm() {
           created_at: data?.created_at,
         },
       });
+      closeOrderPopup("makeOrderPopup");
       router.push("/bill");
     } else {
       openSnakeBar(response.message);

@@ -42,7 +42,7 @@ export default function UsersTable({
             addresses_count={row.addresses_count as number}
             phone_count={row.contacts_count as number}
             type={type}
-            role={row?.role === "owner" ? "مالك" : "موظف"}
+            role={row?.role === "owner" ? "مالك" : row?.role === "admin" ? "موظف" : "مراقب"}
           />
         ))}
       </MainTable>

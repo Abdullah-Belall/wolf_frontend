@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { ReturnsProvider } from "./utils/contexts/returns-contexts";
 import { BillesProvider } from "./utils/contexts/bills-contexts";
 import ReturnsItemsPopupCus from "./components/popup-return-layout/return-cus-popup";
+import { SearchProvider } from "./utils/contexts/search-results-contexts";
 
 export default function RootLayout({
   children,
@@ -41,17 +42,19 @@ export default function RootLayout({
       >
         <>
           <PopupProvider>
-            <UserProvider>
-              <ReturnsProvider>
-                <BillesProvider>
-                  <CustomSnackbar />
-                  {!isLoginRoute && <SideBar />}
-                  {!isLoginRoute && <Header />}
-                  {children}
-                  <ReturnsItemsPopupCus />
-                </BillesProvider>
-              </ReturnsProvider>
-            </UserProvider>
+            <SearchProvider>
+              <UserProvider>
+                <ReturnsProvider>
+                  <BillesProvider>
+                    <CustomSnackbar />
+                    {!isLoginRoute && <SideBar />}
+                    {!isLoginRoute && <Header />}
+                    {children}
+                    <ReturnsItemsPopupCus />
+                  </BillesProvider>
+                </ReturnsProvider>
+              </UserProvider>
+            </SearchProvider>
           </PopupProvider>
         </>
       </body>

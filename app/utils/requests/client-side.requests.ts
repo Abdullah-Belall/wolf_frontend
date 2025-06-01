@@ -1,3 +1,4 @@
+"use client";
 import axios from "axios";
 import { unCountedMessage } from "../base";
 import {
@@ -899,6 +900,49 @@ const INITIAL_DATA_REQ = async () => {
     headers: { Authorization: `Bearer ${getCookie("access_token")}` },
   });
 };
+const SEARCH_REQ = async ({ searchin, searchwith }: { searchin: string; searchwith: string }) => {
+  try {
+    const response: any = await axios.get(
+      `${BASE_URL}/search?searchin=${searchin}&searchwith=${searchwith}`,
+      {
+        headers: { Authorization: `Bearer ${getCookie("access_token")}` },
+      }
+    );
+    return response?.data.results
+      ? { done: true, data: response?.data }
+      : { done: false, message: unCountedMessage, status: response.status };
+  } catch (error: any) {
+    let message = unCountedMessage;
+    if (error?.response?.status !== 400) {
+      message = error?.response?.data?.message;
+    }
+    return {
+      done: false,
+      message: message,
+      status: error.status,
+    };
+  }
+};
+const GET_CALCS_REQ = async () => {
+  try {
+    const response: any = await axios.get(`${BASE_URL}/common/calcs`, {
+      headers: { Authorization: `Bearer ${getCookie("access_token")}` },
+    });
+    return typeof response?.data.totalCostsPrice === "number"
+      ? { done: true, data: response?.data }
+      : { done: false, message: unCountedMessage, status: response.status };
+  } catch (error: any) {
+    let message = unCountedMessage;
+    if (error?.response?.status !== 400) {
+      message = error?.response?.data?.message;
+    }
+    return {
+      done: false,
+      message: message,
+      status: error.status,
+    };
+  }
+};
 //!===============
 const REFRESH_TOKEN_REQ = async () => {
   try {
@@ -988,4 +1032,6 @@ export {
   GET_ORDER_RETURNS_REQ,
   GET_ONE_RETURNS_REQ,
   INITIAL_DATA_REQ,
+  SEARCH_REQ,
+  GET_CALCS_REQ,
 };

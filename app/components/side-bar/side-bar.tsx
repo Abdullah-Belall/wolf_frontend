@@ -78,7 +78,7 @@ const sideBarItems = [
       },
       {
         title: "انشاء فاتورة",
-        link: "/products/sorts",
+        link: "/products/sorts?searchin=sorts",
       },
     ],
   },
@@ -119,7 +119,7 @@ const sideBarItems = [
         link: "/workers",
       },
       {
-        title: "اضافة عميل",
+        title: "اضافة موظف",
         link: "/workers/add-worker",
       },
     ],

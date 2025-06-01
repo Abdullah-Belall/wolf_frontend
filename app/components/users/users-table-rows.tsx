@@ -25,7 +25,7 @@ export default function UsersTableRows({
   addresses_count: number;
   date: Date;
   type: "worker" | "client";
-  role: "موظف" | "مالك";
+  role: "موظف" | "مالك" | "مراقب";
   isForOrder?: boolean;
 }) {
   const { popupState, openPopup } = usePopup();

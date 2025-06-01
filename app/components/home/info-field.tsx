@@ -1,9 +1,22 @@
-export default function InfoField({ title, total }: { title: string; total: number }) {
-  const formattedTotal = total.toLocaleString();
+export default function InfoField({
+  title,
+  total,
+  uom,
+}: {
+  title: string;
+  total: number;
+  uom?: string;
+}) {
+  const formattedTotal = total?.toLocaleString();
 
   return (
-    <div className="flex flex-col items-end bg-myHover border border-mdLight rounded-md w-full px-[15px] py-[30px] shadow-md">
-      <h1 className="font-semibold">{formattedTotal}</h1>
+    <div
+      dir="rtl"
+      className="flex flex-col bg-myHover border border-mdLight rounded-md w-[calc(25%-8px)] px-[15px] py-[30px] shadow-md"
+    >
+      <h1 className="font-semibold">
+        {formattedTotal} {uom ?? ""}
+      </h1>
       {title}
     </div>
   );

@@ -10,12 +10,14 @@ import { CLIENT_COLLECTOR_REQ, GET_ALL_SORTS_REQ } from "@/app/utils/requests/cl
 import { SortInterface } from "@/app/utils/types/interfaces";
 import { useRouter } from "next/navigation";
 import { ImCancelCircle } from "react-icons/im";
+import { useSearch } from "@/app/utils/contexts/search-results-contexts";
 
 export default function Sorts() {
   const router = useRouter();
   const { popupState, closeOrderPopup } = usePopup();
   const [openOrder, setOpenOrder] = useState(false);
   const [data, setData] = useState([]);
+  const { getSearch } = useSearch();
   const fetchData = async () => {
     const response: { done: boolean; data: { sorts: SortInterface[] } } =
       await CLIENT_COLLECTOR_REQ(GET_ALL_SORTS_REQ);
@@ -29,6 +31,12 @@ export default function Sorts() {
   useEffect(() => {
     fetchData();
   }, []);
+  useEffect(() => {
+    const data = getSearch("sorts").results;
+    if (data) {
+      setData(data);
+    }
+  }, [getSearch]);
   return (
     <>
       <div className="px-mainxs relative">

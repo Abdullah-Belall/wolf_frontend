@@ -48,7 +48,9 @@ export default function AllSortsTableRows({
             {product?.category?.name}
           </Link>
         </td>
-        <td className="px-4 py-2 text-center">{price} ج.م</td>
+        <td className="px-4 py-2 text-center">
+          {Number(Number(price).toFixed(2)).toLocaleString()} ج.م
+        </td>
         <td className="px-4 py-2 text-center">{qty}</td>
         <td className="px-4 py-2 text-center">{size}</td>
         <td className="px-4 py-2 text-center">{product?.material}</td>
