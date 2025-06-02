@@ -80,8 +80,8 @@ export default function ProductsTable({
   };
   return (
     <>
-      <MainTable title={title} headers={headers}>
-        {data.map((row, index) => (
+      <MainTable title={title} headers={headers} filter={[true, "products"]}>
+        {data?.map((row, index) => (
           <ProductsTableRows
             key={index}
             index={index + 1}
@@ -97,7 +97,7 @@ export default function ProductsTable({
           />
         ))}
       </MainTable>
-      {data.length === 0 && <NoData />}
+      {data?.length === 0 && <NoData />}
       {popupState.sortsPopup.isOpen && (
         <>
           <BlackLayer

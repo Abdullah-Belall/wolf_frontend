@@ -117,7 +117,7 @@ export default function AddProductForm({
         closePopup("editProductPopup");
         isForEdit.refetch();
       } else {
-        router.push("/products");
+        router.push("/products?searchin=products");
       }
     } else {
       openSnakeBar(response.message);

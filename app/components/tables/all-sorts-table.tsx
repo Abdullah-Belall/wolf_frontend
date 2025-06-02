@@ -23,7 +23,7 @@ export default function AllSortsTable({ data }: { data: SortInterface[] }) {
           "*",
         ]}
       >
-        {data.map((row) => (
+        {data?.map((row) => (
           <AllSortsTableRows
             key={row.id}
             id={row.id}
@@ -38,7 +38,7 @@ export default function AllSortsTable({ data }: { data: SortInterface[] }) {
           />
         ))}
       </MainTable>
-      {data.length === 0 && <NoData />}
+      {data?.length === 0 && <NoData />}
     </>
   );
 }

@@ -37,7 +37,7 @@ export default function SideBarList({ title, icon, affiliateLinks }: SidebarItem
             <Link key={e.title} className="w-full" href={e.link}>
               <Button
                 className={`${
-                  path === e.link ? "!bg-[#f1f1f1]" : ""
+                  path === e.link.split("?")[0] ? "!bg-[#f1f1f1]" : ""
                 } w-full group !rounded-md !justify-end !pe-[32px] !text-secDark !text-[16px] !font-[500] !py-1 hover:bg-myHover!`}
                 variant="text"
                 sx={{ fontFamily: cairo.style.fontFamily }}

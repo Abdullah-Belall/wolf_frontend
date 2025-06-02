@@ -88,7 +88,7 @@ const sideBarItems = [
     affiliateLinks: [
       {
         title: "كل المنتجات",
-        link: "/products",
+        link: "/products?searchin=products",
       },
       {
         title: "اضافة منتج",

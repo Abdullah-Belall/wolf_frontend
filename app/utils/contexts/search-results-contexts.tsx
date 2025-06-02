@@ -1,9 +1,10 @@
 "use client";
 import { createContext, ReactNode, useContext, useState } from "react";
-import { SortInterface } from "../types/interfaces";
+import { ProductInterface, SortInterface } from "../types/interfaces";
 
 interface SearchContextsStateInterface {
   sorts: { results: SortInterface[] | null; total: number };
+  products: { results: ProductInterface[] | null; total: number };
 }
 
 interface SearchContextInterface {
@@ -23,6 +24,7 @@ const SearchContext = createContext<SearchContextInterface | undefined>(undefine
 export const SearchProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [search, setSearch] = useState<SearchContextsStateInterface>({
     sorts: { results: null, total: 0 },
+    products: { results: null, total: 0 },
   });
   const getSearch = (searchContextsName: keyof SearchContextsStateInterface) => {
     return search[searchContextsName];

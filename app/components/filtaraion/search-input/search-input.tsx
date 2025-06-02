@@ -23,13 +23,14 @@ export default function SearchInput({ searchin }: { searchin: string }) {
   useEffect(() => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     const fetchData = async () => {
+      const currentSearchin = current.get("searchin");
       const response = await CLIENT_COLLECTOR_REQ(SEARCH_REQ, {
-        searchin: current.get("searchin"),
+        searchin: currentSearchin,
         searchwith: value,
       });
       console.log(response);
       if (response.done) {
-        fillSearch("sorts", response.data);
+        fillSearch(currentSearchin as any, response.data);
       } else {
         console.log("problema");
       }

@@ -16,14 +16,13 @@ export default function SortsPage() {
   const router = useRouter();
   const { popupState, closeOrderPopup } = usePopup();
   const [openOrder, setOpenOrder] = useState(false);
-  const [data, setData] = useState([]);
-  const { getSearch } = useSearch();
+  const { getSearch, fillSearch } = useSearch();
   const fetchData = async () => {
     const response: { done: boolean; data: { sorts: SortInterface[] } } =
       await CLIENT_COLLECTOR_REQ(GET_ALL_SORTS_REQ);
     console.log(response);
     if (response.done) {
-      setData(response.data.sorts as any);
+      fillSearch("sorts", { results: response.data.sorts, total: response.data.sorts.length });
     } else {
       router.replace("/log-in");
     }
@@ -31,16 +30,10 @@ export default function SortsPage() {
   useEffect(() => {
     fetchData();
   }, []);
-  useEffect(() => {
-    const data = getSearch("sorts").results;
-    if (data) {
-      setData(data);
-    }
-  }, [getSearch]);
   return (
     <>
       <div className="px-mainxs relative">
-        <AllSortsTable data={data} />
+        <AllSortsTable data={getSearch("sorts")?.results} />
         {popupState.makeOrderPopup.isOpen && (
           <div className="!absolute left-[12px] top-[-5px] flex gap-2 items-center">
             <Button
