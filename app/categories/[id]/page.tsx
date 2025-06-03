@@ -1,34 +1,12 @@
 "use client";
-import ProductsTable from "@/app/components/tables/products-table";
-import {
-  CLIENT_COLLECTOR_REQ,
-  GET_CATEGORIES_PRODUCTS_REQ,
-} from "@/app/utils/requests/client-side.requests";
-import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-
-export default function CategoryProducts() {
-  const router = useRouter();
-  const params = useParams();
-  const id = params.id;
-  const [data, setData] = useState([]);
-  const [catName, setCatName] = useState([]);
-  const fetchData = async () => {
-    const response = await CLIENT_COLLECTOR_REQ(GET_CATEGORIES_PRODUCTS_REQ, { id });
-    console.log(response);
-    if (response.done) {
-      setData(response.data.products);
-      setCatName(response.data.name);
-    } else {
-      router.replace("/log-in");
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
-  return (
-    <div className="px-mainxs">
-      <ProductsTable data={data} title={`المنتجات التابعة لفئة ${catName}`} refetch={fetchData} />
-    </div>
-  );
+import dynamic from "next/dynamic";
+const CategoryProductsClient = dynamic(
+  () => import("@/app/components/pages/category-products/cat-products-page"),
+  {
+    ssr: false,
+  }
+);
+export default function Sorts() {
+  console.log("object");
+  return <CategoryProductsClient />;
 }

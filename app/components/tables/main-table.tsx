@@ -8,7 +8,7 @@ export default function MainTable({
 }: {
   title: string;
   headers: string[];
-  filter?: [boolean, string];
+  filter?: [boolean, string, { name: string; slug: string }[]];
   children: React.ReactNode;
 }) {
   const header = headers.map((e, i) => (
@@ -23,7 +23,7 @@ export default function MainTable({
       <div dir="rtl" className="flex items-center justify-between mb-2">
         {filter?.[0] && (
           <>
-            <SearchInput searchin={filter[1]} />
+            <SearchInput searchin={filter[1]} columns={filter[2]} />
             {/* <AppliedFilters /> */}
           </>
         )}

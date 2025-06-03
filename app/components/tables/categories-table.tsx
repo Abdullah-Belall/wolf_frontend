@@ -35,13 +35,18 @@ export default function CategoriesTable({
       refetch();
     }
   };
+  const columns = [
+    { name: "category.name", slug: "الأسم" },
+    { name: "category.desc", slug: "الوصف" },
+  ];
   return (
     <>
       <MainTable
         title={"كل الفئات"}
         headers={["العمليات", "تاريخ الانشاء", "عدد المنتجات التابعة", "الوصف", "الاسم", "*"]}
+        filter={[true, "categories", columns]}
       >
-        {data.map((row, index) => (
+        {data?.map((row, index) => (
           <CategoriesTableRow
             key={index}
             index={index + 1}
@@ -53,7 +58,7 @@ export default function CategoriesTable({
           />
         ))}
       </MainTable>
-      {data.length === 0 && <NoData />}
+      {data?.length === 0 && <NoData />}
       {popupState.editCategoryPopup.isOpen && (
         <>
           <BlackLayer onClick={() => closePopup("editCategoryPopup")} />

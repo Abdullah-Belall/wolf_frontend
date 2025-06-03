@@ -19,5 +19,11 @@ export default function ReturnsPopUp({ index, id }: { index: number | string; id
     fetchData();
   }, []);
   console.log(data);
-  return <ReturnsTable title={`مرتجعات الطلب رقم ${index}`} data={data} />;
+  return (
+    <ReturnsTable
+      isMainTable={false}
+      title={`مرتجعات الطلب رقم ${index}`}
+      data={data?.returns_items}
+    />
+  );
 }

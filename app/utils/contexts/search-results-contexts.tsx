@@ -1,10 +1,24 @@
 "use client";
 import { createContext, ReactNode, useContext, useState } from "react";
-import { ProductInterface, SortInterface } from "../types/interfaces";
+import {
+  CategoryInterface,
+  CostsInterface,
+  OrderInterface,
+  ProductInterface,
+  ReturnDataInterface,
+  SortInterface,
+} from "../types/interfaces";
 
 interface SearchContextsStateInterface {
   sorts: { results: SortInterface[] | null; total: number };
   products: { results: ProductInterface[] | null; total: number };
+  costs: { results: CostsInterface[] | null; total: number };
+  categories: { results: CategoryInterface[] | null; total: number };
+  orders: { results: OrderInterface[] | null; total: number };
+  returns: { results: ReturnDataInterface[] | null; total: number };
+  categoryProducts: { results: ProductInterface[] | null; total: number };
+  clients: { results: [] | null; total: number };
+  workers: { results: [] | null; total: number };
 }
 
 interface SearchContextInterface {
@@ -25,6 +39,13 @@ export const SearchProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [search, setSearch] = useState<SearchContextsStateInterface>({
     sorts: { results: null, total: 0 },
     products: { results: null, total: 0 },
+    costs: { results: null, total: 0 },
+    categories: { results: null, total: 0 },
+    orders: { results: null, total: 0 },
+    returns: { results: null, total: 0 },
+    categoryProducts: { results: null, total: 0 },
+    clients: { results: null, total: 0 },
+    workers: { results: null, total: 0 },
   });
   const getSearch = (searchContextsName: keyof SearchContextsStateInterface) => {
     return search[searchContextsName];

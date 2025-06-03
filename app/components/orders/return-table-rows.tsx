@@ -12,15 +12,9 @@ export default function ReturnsTableRows({
   created_at,
 }: ReturnDataInterface) {
   const { openPopup } = usePopup();
+  console.log(totalPrice);
   return (
     <tr>
-      {/* <td className="px-4 py-2 text-center">
-        <div dir="rtl" className="w-fit ml-auto flex items-center gap-2 mx-auto">
-          <p className="w-fit text-xl hover:text-myDark cursor-pointer text-anotherDark">
-            <IoIosPrint />
-          </p>
-        </div>
-      </td> */}
       <td className="px-4 py-2 text-center">{formatDate(created_at)}</td>
       <td className="px-4 py-2 text-center">
         -

@@ -18,11 +18,13 @@ export default function ProductsTable({
   cat,
   data,
   refetch,
+  isForCategory,
 }: {
   data: ProductInterface[];
   title: string;
   cat?: "الفئة";
   refetch: any;
+  isForCategory: boolean;
 }) {
   const { popupState, closePopup, openPopup } = usePopup();
   const openSnakeBar = (message: string) => {
@@ -78,9 +80,17 @@ export default function ProductsTable({
     });
     closePopup("editSortPopup");
   };
+  const columns = [
+    { name: "product.name", slug: "الأسم" },
+    { name: "product.desc", slug: "الوصف" },
+    { name: "cat.name", slug: "الفئة" },
+    { name: "product.material", slug: "الخامة" },
+    { name: "product.note", slug: "الملاحظات" },
+  ];
+  console.log(data);
   return (
     <>
-      <MainTable title={title} headers={headers} filter={[true, "products"]}>
+      <MainTable title={title} headers={headers} filter={[!isForCategory, "products", columns]}>
         {data?.map((row, index) => (
           <ProductsTableRows
             key={index}

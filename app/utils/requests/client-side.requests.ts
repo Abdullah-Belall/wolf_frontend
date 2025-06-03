@@ -900,10 +900,20 @@ const INITIAL_DATA_REQ = async () => {
     headers: { Authorization: `Bearer ${getCookie("access_token")}` },
   });
 };
-const SEARCH_REQ = async ({ searchin, searchwith }: { searchin: string; searchwith: string }) => {
+const SEARCH_REQ = async ({
+  searchin,
+  searchwith,
+  column,
+}: {
+  searchin: string;
+  searchwith: string;
+  column?: string;
+}) => {
   try {
     const response: any = await axios.get(
-      `${BASE_URL}/common/search?searchin=${searchin}&searchwith=${searchwith}`,
+      `${BASE_URL}/common/search?searchin=${searchin}${
+        searchwith ? "&searchwith=" + searchwith : ""
+      }${column ? "&column=" + column : ""}`,
       {
         headers: { Authorization: `Bearer ${getCookie("access_token")}` },
       }

@@ -30,6 +30,7 @@ export default function ProductsPage() {
     <>
       <div className="px-mainxs">
         <ProductsTable
+          isForCategory={false}
           title={"كل المنتجات"}
           data={data.results}
           cat={"الفئة"}

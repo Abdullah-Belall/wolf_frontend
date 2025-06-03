@@ -5,6 +5,13 @@ import CostsTableRows from "../products/costs-table-rows";
 import NoData from "../common/no-data";
 
 export default function CostsTable({ data }: { data: CostsInterface[] }) {
+  const columns = [
+    { name: "cost.short_id", slug: "رقم الفاتورة" },
+    { name: "product.name", slug: "اسم المنتج" },
+    { name: "sort.name", slug: "اسم الصنف" },
+    { name: "sort.color", slug: "لون الصنف" },
+    { name: "sort.size", slug: "مقاس الصنف" },
+  ];
   return (
     <>
       <MainTable
@@ -20,8 +27,9 @@ export default function CostsTable({ data }: { data: CostsInterface[] }) {
           "اسم المنتج",
           "*",
         ]}
+        filter={[true, "costs", columns]}
       >
-        {data.map((row, index) => (
+        {data?.map((row, index) => (
           <CostsTableRows
             key={index}
             id={row.id}
@@ -33,7 +41,7 @@ export default function CostsTable({ data }: { data: CostsInterface[] }) {
           />
         ))}
       </MainTable>
-      {data.length === 0 && <NoData />}
+      {data?.length === 0 && <NoData />}
     </>
   );
 }

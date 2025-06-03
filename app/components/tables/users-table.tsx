@@ -26,9 +26,20 @@ export default function UsersTable({
     headers.splice(1, 0, "الدور");
   }
   console.log(data);
+  let columns = [
+    { name: "client.user_name", slug: "الأسم" },
+    { name: "client.tax_num", slug: "الرقم الضريبي" },
+  ];
+  if (type === "worker") {
+    columns = [];
+  }
   return (
     <div className="px-mainxs">
-      <MainTable title={type === "client" ? "كل العملاء" : "كل الموظفين"} headers={headers}>
+      <MainTable
+        filter={[true, `${type}s`, columns]}
+        title={type === "client" ? "كل العملاء" : "كل الموظفين"}
+        headers={headers}
+      >
         {data?.map((row, index) => (
           <UsersTableRows
             key={row.id}
@@ -46,7 +57,7 @@ export default function UsersTable({
           />
         ))}
       </MainTable>
-      {data.length === 0 && <NoData />}
+      {data?.length === 0 && <NoData />}
     </div>
   );
 }

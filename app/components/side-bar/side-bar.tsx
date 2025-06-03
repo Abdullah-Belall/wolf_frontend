@@ -66,15 +66,15 @@ const sideBarItems = [
     affiliateLinks: [
       {
         title: "فواتير التكاليف",
-        link: "/products/costs",
+        link: "/products/costs?searchin=costs",
       },
       {
         title: "فواتير المبيعات",
-        link: "/orders",
+        link: "/orders?searchin=orders",
       },
       {
         title: "فواتير المرتجعات",
-        link: "/returns",
+        link: "/returns?searchin=returns",
       },
       {
         title: "انشاء فاتورة",
@@ -102,7 +102,7 @@ const sideBarItems = [
     affiliateLinks: [
       {
         title: "كل العملاء",
-        link: "/clients",
+        link: "/clients?searchin=clients",
       },
       {
         title: "اضافة عميل",
@@ -116,7 +116,7 @@ const sideBarItems = [
     affiliateLinks: [
       {
         title: "كل الموظفين",
-        link: "/workers",
+        link: "/workers?searchin=workers",
       },
       {
         title: "اضافة موظف",

@@ -52,7 +52,9 @@ export default function SortsTableRows({
         <td className="px-4 py-2 text-center">{formatDate(created_at)}</td>
         <td className="px-4 py-2 text-center">{note ?? "لا يوجد"}</td>
         <td className="px-4 py-2 text-center">{orders_count}</td>
-        <td className="px-4 py-2 text-center">{price} ج.م</td>
+        <td className="px-4 py-2 text-center">
+          {Number(Number(price).toFixed(2)).toLocaleString()} ج.م
+        </td>
         <td
           onClick={() =>
             openPopup("editQtyPopup", {

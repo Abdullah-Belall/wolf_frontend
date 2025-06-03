@@ -5,10 +5,18 @@ import MainTable from "./main-table";
 import { SortInterface } from "@/app/utils/types/interfaces";
 
 export default function AllSortsTable({ data }: { data: SortInterface[] }) {
+  const columns = [
+    { name: "product.name", slug: "المنتج" },
+    { name: "sort.name", slug: "الصنف" },
+    { name: "sort.color", slug: "اللون" },
+    { name: "sort.size", slug: "المقاس" },
+    { name: "product.material", slug: "الخامة" },
+    { name: "category.name", slug: "الفئة" },
+  ];
   return (
     <>
       <MainTable
-        filter={[true, "sorts"]}
+        filter={[true, "sorts", columns]}
         title={`انشاء فاتورة`}
         headers={[
           "التاريخ",

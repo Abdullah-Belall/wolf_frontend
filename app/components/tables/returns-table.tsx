@@ -1,5 +1,5 @@
 "use client";
-import { ReturnDataInterface, ReturnsItemsInterface } from "@/app/utils/types/interfaces";
+import { ReturnDataInterface } from "@/app/utils/types/interfaces";
 import MainTable from "./main-table";
 import NoData from "../common/no-data";
 import ReturnsTableRows from "../orders/return-table-rows";
@@ -7,17 +7,35 @@ import ReturnsTableRows from "../orders/return-table-rows";
 export default function ReturnsTable({
   data,
   title,
+  isMainTable,
 }: {
-  data: ReturnDataInterface;
+  data: ReturnDataInterface[];
   title: string;
+  isMainTable: boolean;
 }) {
-  const calcTotalPrice = (returnsItems: ReturnsItemsInterface[]) => {
-    return returnsItems.reduce((acc, curr) => acc + Number(curr.qty) * Number(curr.unit_price), 0);
+  const calcTotalPrice = () => {
+    let totalPrice = 0;
+    for (const item of data) {
+      totalPrice +=
+        item?.returns_items?.reduce(
+          (acc, curr) => acc + Number(curr.qty) * Number(curr.unit_price),
+          0
+        ) || 0;
+    }
+    return totalPrice;
   };
   return (
     <>
       <MainTable
         title={title}
+        filter={[
+          isMainTable,
+          "returns",
+          [
+            { name: "return.short_id", slug: "رقم الفاتورة" },
+            { name: "client.user_name", slug: "العميل" },
+          ],
+        ]}
         headers={[
           "التاريخ",
           "فاتورة المرتجع",
@@ -28,12 +46,12 @@ export default function ReturnsTable({
           "*",
         ]}
       >
-        {data?.returns_items?.map((row: any, index) => (
+        {data?.map((row: any, index) => (
           <ReturnsTableRows
             key={index}
             id={row?.id}
             order={row?.order}
-            totalPrice={calcTotalPrice(row?.returns_items)}
+            totalPrice={calcTotalPrice()}
             returns_items_count={row?.returns_items_count}
             created_at={row?.created_at}
             updated_at={row?.updated_at}
@@ -41,7 +59,7 @@ export default function ReturnsTable({
           />
         ))}
       </MainTable>
-      {data?.returns_items?.length === 0 && <NoData />}
+      {data?.length === 0 && <NoData />}
     </>
   );
 }

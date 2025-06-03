@@ -38,10 +38,17 @@ export default function OrdersTable({
   if (tableFor === "client") {
     headers.splice(5, 1);
   }
-
+  const columns = [
+    { name: "order.short_id", slug: "رقم الفاتورة" },
+    { name: "client.user_name", slug: "العميل" },
+  ];
   return (
     <>
-      <MainTable title={title} headers={headers}>
+      <MainTable
+        title={title}
+        headers={headers}
+        filter={[tableFor === "client" ? false : true, "orders", columns]}
+      >
         {data?.map((row, index) => (
           <OrdersTableRow
             key={index}
