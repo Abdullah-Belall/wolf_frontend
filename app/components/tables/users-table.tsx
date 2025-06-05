@@ -36,7 +36,7 @@ export default function UsersTable({
   return (
     <div className="px-mainxs">
       <MainTable
-        filter={[true, `${type}s`, columns]}
+        filter={[!forOrder, `${type}s`, columns]}
         title={type === "client" ? "كل العملاء" : "كل الموظفين"}
         headers={headers}
       >

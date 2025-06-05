@@ -22,7 +22,7 @@ export default function AddSortForm({
     size: string;
     color: string;
     qty: string;
-    price: string;
+    unit_price: string;
     note: string;
   };
 }) {
@@ -33,7 +33,7 @@ export default function AddSortForm({
     size: string;
     qty?: string | number;
     cost?: string | number;
-    price: string | number;
+    unit_price: string | number;
     note: string;
   }>({
     name: isForEdit ? isForEdit.name : "",
@@ -41,7 +41,7 @@ export default function AddSortForm({
     size: isForEdit ? isForEdit.size : "",
     qty: isForEdit ? isForEdit.qty : "",
     cost: "",
-    price: isForEdit ? isForEdit.price : "",
+    unit_price: isForEdit ? isForEdit.unit_price : "",
     note: isForEdit ? isForEdit.note : "",
   });
   const { openPopup } = usePopup();
@@ -52,7 +52,7 @@ export default function AddSortForm({
     setData({ ...data, [key]: value });
   };
   const vaildation = () => {
-    const { name, size, qty, cost, price } = data;
+    const { name, size, qty, cost, unit_price } = data;
     if (name === "") {
       openSnakeBar("يجب تحديد اسم للصنف للمتابعة.");
       return false;
@@ -69,15 +69,17 @@ export default function AddSortForm({
       openSnakeBar("يجب تحديد كمية للمتابعة.");
       return false;
     }
-    if (Number(cost) <= 0) {
-      openSnakeBar("يجب تحديد تكلفة بضاعة للمتابعة.");
-      return false;
+    if (!isForEdit) {
+      if (Number(cost) <= 0) {
+        openSnakeBar("يجب تحديد تكلفة بضاعة للمتابعة.");
+        return false;
+      }
     }
-    if (+price <= 0) {
+    if (+unit_price <= 0) {
       openSnakeBar("يجب تحديد سعر للوحدة للمتابعة.");
       return false;
     }
-    if (Number(qty) * Number(price) < Number(qty) * Number(cost)) {
+    if (Number(qty) * Number(unit_price) < Number(qty) * Number(cost)) {
       openSnakeBar("لا يمكن ان تكون تكلفة البضاعة اقل من سعر بيع الكمية كاملة.");
       return false;
     }
@@ -96,9 +98,9 @@ export default function AddSortForm({
       id,
       ...data,
     };
-    editObj.data.price = Number(editObj.data.price);
+    editObj.data.unit_price = Number(editObj.data.unit_price);
     addObj.qty = Number(addObj.qty);
-    addObj.price = Number(addObj.price);
+    addObj.unit_price = Number(addObj.unit_price);
     addObj.costPrice = Number(addObj.cost) * addObj.qty;
     delete addObj.cost;
     delete editObj.data.qty;
@@ -161,8 +163,8 @@ export default function AddSortForm({
             className="w-full"
             variant="filled"
             sx={sameTextField}
-            value={data.price ?? ""}
-            onChange={(e) => handleData("price", e.target.value.replace(/[^0-9.]/g, ""))}
+            value={data.unit_price ?? ""}
+            onChange={(e) => handleData("unit_price", e.target.value.replace(/[^0-9.]/g, ""))}
           />
           {!isForEdit && (
             <>

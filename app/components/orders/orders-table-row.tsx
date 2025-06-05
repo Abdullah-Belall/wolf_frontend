@@ -67,7 +67,7 @@ export default function OrdersTableRow({
         name: item?.sort?.name,
         size: item?.sort?.size,
         qty: item?.qty,
-        price: item?.unit_price,
+        unit_price: item?.unit_price,
         product: {
           name: item?.sort?.product?.name,
           id: item?.sort?.product?.id,

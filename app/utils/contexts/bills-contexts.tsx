@@ -9,7 +9,7 @@ export type BillsDataType = {
   name: string;
   size: string | null;
   qty: number;
-  price: string;
+  unit_price: string;
   product: {
     name: string;
     id: string;

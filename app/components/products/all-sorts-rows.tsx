@@ -13,17 +13,17 @@ export default function AllSortsTableRows({
   color,
   size,
   qty,
-  price,
+  unit_price,
   created_at,
 }: SortInterface) {
   const { openPopup, popupState, closeOrderPopup } = usePopup();
   const handleInputs = (value: string) => {
     if (value !== "") {
-      const updatedSorts: { product_id: string; qty: number; price: string }[] =
+      const updatedSorts: { product_id: string; qty: number; unit_price: string }[] =
         popupState.makeOrderPopup.data.product_sorts.filter(
           (e: { product_id: string; qty: number }) => e.product_id !== id
         );
-      updatedSorts.push({ product_id: id, qty: +value, price });
+      updatedSorts.push({ product_id: id, qty: +value, unit_price });
       openPopup("makeOrderPopup", { product_sorts: updatedSorts });
     } else if (value === "" && popupState.makeOrderPopup.data.product_sorts.length > 1) {
       const updatedSorts: { product_id: string; qty: number }[] =
@@ -49,7 +49,7 @@ export default function AllSortsTableRows({
           </Link>
         </td>
         <td className="px-4 py-2 text-center">
-          {Number(Number(price).toFixed(2)).toLocaleString()} ج.م
+          {Number(Number(unit_price).toFixed(2)).toLocaleString()} ج.م
         </td>
         <td className="px-4 py-2 text-center">{qty}</td>
         <td className="px-4 py-2 text-center">{size}</td>

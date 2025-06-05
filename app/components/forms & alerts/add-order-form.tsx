@@ -74,7 +74,8 @@ export default function AddOrderForm() {
     fetchData();
   }, []);
   const totalPrice = popupState.makeOrderPopup.data.product_sorts.reduce(
-    (acc: number, curr: { price: number; qty: number }) => acc + Number(curr.price) * curr.qty,
+    (acc: number, curr: { unit_price: number; qty: number }) =>
+      acc + Number(curr.unit_price) * curr.qty,
     0
   );
   const totalPriceAfter =

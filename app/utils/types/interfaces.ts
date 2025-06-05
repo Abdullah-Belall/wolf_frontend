@@ -40,7 +40,7 @@ export interface ProductItemInterface {
   color: string | null;
   size: string;
   qty: number;
-  price: string;
+  unit_price: string;
   note: string | null;
   orders_count: number;
   created_at: Date;
@@ -53,7 +53,7 @@ export interface AddSortInterface {
   size: string;
   qty: number;
   cost: number;
-  price: number;
+  unit_price: number;
 }
 export interface PaymentInterface {
   id: string;
@@ -90,7 +90,7 @@ export interface SortInterface {
   color: string | null;
   size: string;
   qty: number;
-  price: string;
+  unit_price: string;
   note: string;
   created_at: Date;
   updated_at?: Date;
@@ -256,4 +256,12 @@ export interface CalcsInterface {
   countPaidOrders: number;
   notPaidOrders: number;
   countNotPaidOrders: number;
+}
+
+export interface GraphDataInterface {
+  totalEarning: number;
+  netProfit: number;
+  year: number;
+  month?: number;
+  day?: number;
 }

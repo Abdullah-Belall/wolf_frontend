@@ -39,7 +39,7 @@ export default function AllSortsTable({ data }: { data: SortInterface[] }) {
             color={row.color === "" || !row.color ? null : row.color}
             size={row.size}
             qty={row.qty}
-            price={row.price}
+            unit_price={row.unit_price}
             note={row.note}
             created_at={row.created_at}
             product={row.product}

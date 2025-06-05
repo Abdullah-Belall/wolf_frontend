@@ -51,7 +51,7 @@ export default function SortsTable({ title, id }: { id: string; title: string })
             color={row.color === "" || !row.color ? null : row.color}
             size={row.size}
             qty={row.qty}
-            price={row.price}
+            unit_price={row.unit_price}
             note={row.note === "" ? null : row.note}
             orders_count={row.orders_count}
             created_at={row.created_at}

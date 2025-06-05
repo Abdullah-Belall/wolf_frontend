@@ -17,7 +17,7 @@ export default function SortsTableRows({
   color,
   size,
   qty,
-  price,
+  unit_price,
   orders_count,
   note,
   created_at,
@@ -38,7 +38,7 @@ export default function SortsTableRows({
                   size,
                   color,
                   qty,
-                  price,
+                  unit_price,
                   note,
                   refetchOnEdit,
                 })
@@ -53,7 +53,7 @@ export default function SortsTableRows({
         <td className="px-4 py-2 text-center">{note ?? "لا يوجد"}</td>
         <td className="px-4 py-2 text-center">{orders_count}</td>
         <td className="px-4 py-2 text-center">
-          {Number(Number(price).toFixed(2)).toLocaleString()} ج.م
+          {Number(Number(unit_price).toFixed(2)).toLocaleString()} ج.م
         </td>
         <td
           onClick={() =>

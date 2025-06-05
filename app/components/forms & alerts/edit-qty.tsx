@@ -71,7 +71,12 @@ export default function EditQtyPopup({ OnConfirm }: { OnConfirm: any; title: str
             className="w-full"
             sx={sameTextField}
             value={data.newQty ?? ""}
-            onChange={(e) => handleData("newQty", e.target.value.replace(/[^0-9.]/g, ""))}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^-?\d*\.?\d*$/.test(value)) {
+                handleData("newQty", value);
+              }
+            }}
           />
           <TextField
             id="Glu"

@@ -938,6 +938,7 @@ const GET_CALCS_REQ = async () => {
     const response: any = await axios.get(`${BASE_URL}/common/calcs`, {
       headers: { Authorization: `Bearer ${getCookie("access_token")}` },
     });
+    console.log(response);
     return typeof response?.data.totalCostsPrice === "number"
       ? { done: true, data: response?.data }
       : { done: false, message: unCountedMessage, status: response.status };
@@ -953,7 +954,6 @@ const GET_CALCS_REQ = async () => {
     };
   }
 };
-//!===============
 const REFRESH_TOKEN_REQ = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/workers/refresh-token`, {
@@ -970,6 +970,26 @@ const REFRESH_TOKEN_REQ = async () => {
     if (error?.response?.status !== 400) {
     }
     message = error?.response?.data?.message;
+    return {
+      done: false,
+      message: message,
+      status: error.status,
+    };
+  }
+};
+const GET_GRAPH_DATA_REQ = async ({ type }: { type: "years" | "months" | "days" }) => {
+  try {
+    const response: any = await axios.get(`${BASE_URL}/orders/graphData?type=${type}`, {
+      headers: { Authorization: `Bearer ${getCookie("access_token")}` },
+    });
+    return response?.data.totalGraphData
+      ? { done: true, data: response?.data }
+      : { done: false, message: unCountedMessage, status: response.status };
+  } catch (error: any) {
+    let message = unCountedMessage;
+    if (error?.response?.status !== 400) {
+      message = error?.response?.data?.message;
+    }
     return {
       done: false,
       message: message,
@@ -1044,4 +1064,5 @@ export {
   INITIAL_DATA_REQ,
   SEARCH_REQ,
   GET_CALCS_REQ,
+  GET_GRAPH_DATA_REQ,
 };
